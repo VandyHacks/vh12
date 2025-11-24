@@ -1,65 +1,53 @@
-import Image from "next/image";
+'use client'
+
+import Countdown from "@/components/Countdown";
+import { pressStart2P, vt323 } from "./layout";
+import { motion } from "motion/react";
 
 export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+	return (
+		<div className="min-h-screen w-full relative">
+			<div style={{ backgroundImage: "url(stars_random_full.png)", backgroundSize: "cover", backgroundRepeat: "no-repeat" }} className="absolute inset-0 -z-1 overflow-hidden"/>
+			<div style={{ lineHeight: "normal" }} className={`${vt323.className} absolute bottom-1 w-full text-center text-[30px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
+				Unleash your creativity at our hackathon—step in like a player, imagine wildly, and build what you wish existed.
+				Team up, level up, and speed-run ideas from sketch to demo. Whether you`re a coder, designer, or storyteller, bring your spark and craft something unforgettable together. Be bold, be playful, be curious.
+				This hackathon is your sandbox to prototype dreams, remix tech, and push limits.
+			</div>
+			<div style={{ lineHeight: "normal" }} className="w-full h-screen">
+				<div className={`${vt323.className} pt-[90px] flex justify-center items-center flex-col gap-[10px] mb-[150px]`}>
+					<p className="text-[36px] bg-[linear-gradient(90deg,#4733AE_0%,#AA52E9_100%)] text-transparent bg-clip-text inline-block">Hacking ends in!</p>
+					<p className=" text-[50px] bg-[linear-gradient(90deg,#731914_0%,#D93025_99.99%)] text-transparent bg-clip-text inline-block">Hurry Up</p>
+					<Countdown/>
+				</div>
+				<div className={`${pressStart2P.className}`}>
+					<h1 className="text-[30px] md:text-[64px] uppercase header-text-shadow mb-[25px] text-center">vandyhacks xii</h1>
+					<div className="w-fit mx-auto">
+						<h2 
+							style={{ lineHeight: "42px" }} 
+							className="bg-[linear-gradient(90deg,#4733AE_0%,#9245C9_69.23%,#AA52E9_100%)] whitespace-pre-line text-center text-[12px] md:text-[20px] text-transparent bg-clip-text inline-block"
+						>
+							{"Vanderbilt`s Collegiate Hackathon\nNashville, TN | Mar. 23-24"}
+						</h2>
+					</div>
+				</div>
+				<motion.div 
+					className="cursor-pointer max-w-[450px] max-h-[61px] mx-auto mt-[52px]"
+					initial={{
+						scale: 1
+					}}
+					whileHover={{
+						scale: 1.07
+					}}
+					whileTap={{
+						scale: 0.95
+					}}
+					transition={{
+						type: "spring"
+					}}
+				>
+					<img src="apply_button.svg" width={450} height={61} className=""/>
+				</motion.div>
+			</div>
+		</div>
+	);
 }

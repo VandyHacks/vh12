@@ -74,8 +74,8 @@ const CountdownItem = ({ unit, text }: { unit: string, text: string }) => {
     const { ref, time } = useTimer(unit);
     return (
         <div>
-            <p ref={ref} className="text-[60px]">{time}</p>
-            <p className="text-[30px]">{text}</p>
+            <p ref={ref} className="text-[30px] md:text-[60px]">{time}</p>
+            <p className="text-[15px] md:text-[30px]">{text}</p>
         </div>
     );
 
@@ -86,11 +86,11 @@ export default function Countdown() {
     return (
         <div style={{ lineHeight: "normal" }} className="flex justify-center items-center text-white text-center uppercase gap-[30px]">
             <CountdownItem unit="Day" text="DAYS"/>
-            <p className="text-[32px]">:</p>
+            <p className="text-[15px] md:text-[32px]">:</p>
             <CountdownItem unit="Hour" text="HOURS"/>
-            <p className="text-[32px]">:</p>
+            <p className="text-[15px] md:text-[32px]">:</p>
             <CountdownItem unit="Minute" text="MINUTES"/>
-            <p className="text-[32px]">:</p>
+            <p className="text-[15px] md:text-[32px]">:</p>
             <CountdownItem unit="Second" text="SECONDS"/>
         </div>  
     );

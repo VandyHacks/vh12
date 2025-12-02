@@ -5,13 +5,14 @@ import { motion } from "motion/react";
 import { pressStart2P, vt323 } from "../layout"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Button from "@/components/Button"
 
 export default function Home() {
 
 	const router = useRouter();
 
 	return (
-		<>
+		<div className="overflow-hidden">
 			<div style={{ lineHeight: "normal" }} className={`${vt323.className} absolute bottom-1 w-full text-center text-[15px] md:text-[30px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
 				Unleash your creativity at our hackathon—step in like a player, imagine wildly, and build what you wish existed.
 				Team up, level up, and speed-run ideas from sketch to demo. Whether you`re a coder, designer, or storyteller, bring your spark and craft something unforgettable together. Be bold, be playful, be curious.
@@ -33,25 +34,16 @@ export default function Home() {
 						</h2>
 					</div>
 				</div>
-				<motion.div 
-					className="cursor-pointer max-w-[450px] max-h-[61px] absolute top-2/3 -translate-y-1/2 left-1/2 -translate-x-1/2"
-					initial={{
-						scale: 1
-					}}
-					whileHover={{
-						scale: 1.05
-					}}
-					whileTap={{
-						scale: 0.95
-					}}
-					transition={{
-						type: "spring"
-					}}
-					onClick={() => router.push("/sign-in")}
+				<motion.div
+					className="w-full absolute top-3/4 -translate-y-1/2 left-1/2 -translate-x-1/2 pointer-events-none cursor-pointer"
+					initial={{ scale: 1 }}
+					whileHover={{ scale: 1.05 }}
+					whileTap={{ scale: 0.95 }}
+					transition={{ type: "spring" }}
 				>
-					<Image src="apply_button.svg" alt="Apply button" width={450} height={61} className=""/>
+					<Button text="Apply Now" onClick={() => router.push("/sign-in")} />
 				</motion.div>
 			</div>
-		</>
+		</div>
 	);
 }

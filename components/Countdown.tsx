@@ -3,7 +3,7 @@
 import { useAnimate } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-const COUNTDOWN_FROM = "2026-05-01";
+const COUNTDOWN_FROM = "2026-03-24";
 const SECOND = 1000;
 const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;

@@ -1,10 +1,12 @@
+'use server'
+
 import { auth } from "@/lib/auth/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { pressStart2P } from "@/app/layout";
 import Form from "@/components/Form";
-
-// shadow-[6px_6px_0px_0px_#000]
+import { connectToDatabase } from "@/database/mongoose"
+import { Applicant } from "@/database/schemas"
+import RegisterSuccess from "@/components/RegisterSuccess";
 
 export default async function Register() {
 
@@ -13,7 +15,17 @@ export default async function Register() {
     });
     if (!session) redirect("/sign-in");
 
-    return (
-        <Form email={session.user.email}/>
-    );
+    await connectToDatabase();
+    const alreadyApplied = Boolean(await Applicant.exists({ email: session.user.email }));
+
+    if (alreadyApplied) {
+        return (
+            <RegisterSuccess email={session.user.email}/>
+        );
+    }
+    else {
+        return (    
+            <Form email={session.user.email}/>
+        );
+    }
 }

@@ -88,7 +88,7 @@ const CountdownItem = ({ unit, text }: { unit: string, text: string }) => {
 export default function Countdown() {
 
     return (
-        <div style={{ lineHeight: "normal" }} className="flex justify-center items-center text-white text-center uppercase gap-[30px]">
+        <div style={{ lineHeight: "normal" }} className="flex justify-center items-center text-white text-center uppercase gap-[15px] md:gap-[30px]">
             <CountdownItem unit="Day" text="DAYS"/>
             <p className="text-[15px] md:text-[32px]">:</p>
             <CountdownItem unit="Hour" text="HOURS"/>

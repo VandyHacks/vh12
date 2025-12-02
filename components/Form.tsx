@@ -31,19 +31,27 @@ export default function Form({ email }: { email: string }) {
 
     const submitted = useRef(false);
     const [error, setError] = useState<string>("");
+    const fieldRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
     const onSubmit = async (data: any) => {
         if (submitted.current) return; 
-        //submitted.current = true;
+        submitted.current = true;
 
-        console.log("submitting");
         const result = await submitForm(data);
         if (result?.success) {
-            console.log("success");
+            window.location.reload();
         }
         else {
             setError(result.error || "An error occurred. Please try again later.")
             submitted.current = false;
+        }
+    };
+
+    const onError = (errors: any) => {
+        const firstErrorKey = Object.keys(errors)[0];
+        const ref = fieldRefs.current[firstErrorKey];
+        if (ref) {
+            ref.scrollIntoView({ behavior: "instant", block: "center" });
         }
     };
 
@@ -52,7 +60,7 @@ export default function Form({ email }: { email: string }) {
             <h1 className="text-[35px] sm:text-[50px] md:text-[64px] uppercase header-text-shadow text-center">vandyhacks xii</h1>
             <h2 className="text-[15px] sm:text-[20px] md:text-[30px] text-stone-200 mb-3 uppercase text-center">register</h2>
             <p className="mb-15 text-sm text-stone-200 text-center">Signed in as: {email}</p>
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-2xl mx-auto px-10 md:px-0">
+            <form onSubmit={handleSubmit(onSubmit, onError)} className="w-full max-w-2xl mx-auto px-10 md:px-0">
                 <div className="md:grid md:auto-cols-fr md:gap-2 text-stone-200 space-y-5">
                     <InputField name="name" type="text" label="Full Name" register={register} error={errors.name} validation={{ 
                         required: "Name is required.", 
@@ -61,7 +69,14 @@ export default function Form({ email }: { email: string }) {
                     }}/>
                     <InputField name="preferredName" type="text" label="Preferred Name" register={register} error={errors.preferredName}/>
                     <div className="col-span-2">
-                        <Selector name="gender" label="Gender" options={GENDER_OPTIONS} control={control} error={errors.gender}/>
+                        <Selector 
+                            name="gender" 
+                            label="Gender" 
+                            options={GENDER_OPTIONS} 
+                            control={control} 
+                            error={errors.gender} 
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["gender"] = ref} 
+                        />
                     </div>
                     <InputField name="age" type="text" label="Age" register={register} error={errors.age} validation={{
                         required: "Age is required.",
@@ -77,7 +92,7 @@ export default function Form({ email }: { email: string }) {
                     <div className="col-span-2">
                         <InputField name="phoneNumber" type="text" label="Phone Number" register={register} error={errors.phoneNumber} validation={{
                             required: "Phone number is required.",
-                            maxLength: { value: 10, message: "Must be less than 10 characters." }
+                            maxLength: { value: 15, message: "Must be less than 15 characters." }
                         }} />
                     </div>
                     <div className="col-span-2">
@@ -87,6 +102,7 @@ export default function Form({ email }: { email: string }) {
                             control={control}
                             options={LEVEL_OF_STUDY_OPTIONS}
                             error={errors.levelOfStudy}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["levelOfStudy"] = ref} 
                         />
                     </div>
                     <div className="col-span-2">
@@ -96,6 +112,7 @@ export default function Form({ email }: { email: string }) {
                             control={control}
                             options={GRADUATION_YEAR_OPTIONS}
                             error={errors.graduationYear}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["graduationYear"] = ref} 
                         />
                     </div>
                     <div className="col-span-2">
@@ -132,6 +149,7 @@ export default function Form({ email }: { email: string }) {
                             control={control}
                             options={RACE_OPTIONS}
                             error={errors.race}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["race"] = ref} 
                         />
                     </div>
                     <div className="col-span-2">
@@ -142,6 +160,7 @@ export default function Form({ email }: { email: string }) {
                             multiple
                             options={DIETARY_OPTIONS}
                             error={errors.dietaryRestrictions}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["dietaryRestrictions"] = ref} 
                         />
                     </div>
                     <div className="col-span-2">
@@ -150,7 +169,7 @@ export default function Form({ email }: { email: string }) {
                         }} />
                     </div>
                     <div className="col-span-2">
-                        <Selector name="firstTimeHacker" label="First-time hacker?" options={["Yes", "No"]} control={control} error={errors.firstTimeHacker} />
+                        <Selector name="firstTimeHacker" label="First-time hacker?" options={["Yes", "No"]} control={control} error={errors.firstTimeHacker} fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["firstTimeHacker"] = ref} />
                     </div>
                     <div className="col-span-2">
                         <InputField name="whyAttend" type="text" label="Why would you like to attend VandyHacks?" register={register} error={errors.whyAttend} textWrap validation={{
@@ -181,13 +200,14 @@ export default function Form({ email }: { email: string }) {
                             options={GAIN_FROM_VANDYHACKS_OPTIONS}
                             textWrap
                             error={errors.gainFromVandyHacks}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["gainFromVandyHacks"] = ref} 
                         />
                     </div>
                     <div className="col-span-2">
-                        <Selector name="shirtSize" label="Shirt Size" options={SHIRT_SIZES} control={control} error={errors.shirtSize} />
+                        <Selector name="shirtSize" label="Shirt Size" options={SHIRT_SIZES} control={control} error={errors.shirtSize} fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["shirtSize"] = ref} />
                     </div>
                     <div className="col-span-2">
-                        <Selector name="overnight" label="Are you staying overnight in the venue?" options={YES_NO_OPTIONS} control={control} textWrap error={errors.overnight}/>
+                        <Selector name="overnight" label="Are you staying overnight in the venue?" options={YES_NO_OPTIONS} control={control} textWrap error={errors.overnight} fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["overnight"] = ref} />
                     </div>
                     <div className="col-span-2">
                         <Selector
@@ -197,10 +217,11 @@ export default function Form({ email }: { email: string }) {
                             control={control}
                             textWrap
                             error={errors.usStatus}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["usStatus"] = ref} 
                         />
                     </div>
                     <div className="col-span-2">
-                        <Selector name="volunteerContact" label="Would you like to be contacted about volunteering at the event?" options={YES_NO_OPTIONS} control={control} textWrap error={errors.volunteerContact}/>
+                        <Selector name="volunteerContact" label="Would you like to be contacted about volunteering at the event?" options={YES_NO_OPTIONS} control={control} textWrap error={errors.volunteerContact} fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["volunteerContact"] = ref} />
                     </div>
                 </div>
                 <div className="w-full flex justify-center mt-20">

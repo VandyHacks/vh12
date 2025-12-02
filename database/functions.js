@@ -5,6 +5,16 @@ import { Applicant } from "@/database/schemas"
 import { auth } from "@/lib/auth/auth";
 import { success } from "better-auth";
 import { headers } from "next/headers";
+import {
+  GENDER_OPTIONS,
+  LEVEL_OF_STUDY_OPTIONS,
+  GRADUATION_YEAR_OPTIONS,
+  RACE_OPTIONS,
+  DIETARY_OPTIONS,
+  GAIN_FROM_VANDYHACKS_OPTIONS,
+  SHIRT_SIZES,
+  YES_NO_OPTIONS,
+} from '@/lib/constants'
 
 export const submitForm = async (data) => {
 
@@ -20,21 +30,52 @@ export const submitForm = async (data) => {
         const alreadyApplied = Boolean(await Applicant.exists({ email: session.user.email }));
         if (alreadyApplied) return { success: false, error: "You have already applied!" };
 
-        for (const key in data) {
-            if (typeof data[key] === "string") {
-                data[key].trim();
-            }
-            else {
-                data[key].map(element => element.trim());
-            } 
+        for (const k in data) {
+            if (typeof data[k] === 'string') data[k] = data[k].trim();
+            else if (Array.isArray(data[k])) data[k] = data[k].map(e => typeof e === 'string' ? e.trim() : e);
         }
-        console.log(data)
 
-        const applicant = new Applicant({
-            ...data,
-            email: session.user.email
-            
-        });
+        const lengths = {
+            name: [2,30],
+            age: [null,2],
+            major: [2,30],
+            phoneNumber: [null,15],
+            addressLine1: [null,50],
+            addressLine2: [null,50],
+            city: [null,50],
+            state: [null,50],
+            zipCode: [null,50],
+            country: [null,50],
+            accommodationNeeds: [null,150],
+            whyAttend: [null,150],
+            techIndustryInterest: [null,150],
+            techStackFamiliarity: [null,150],
+            passions: [null,150]
+        }
+
+        for (const [k, v] of Object.entries(lengths)) {
+            const val = data[k];
+            if (val == null) continue;
+            if (typeof val === 'string') {
+                const min = v[0], max = v[1];
+                if (min && val.length < min) return { success: false };
+                if (max && val.length > max) return { success: false };
+            }
+        }
+
+        if (!GENDER_OPTIONS.includes(data.gender)) return { success: false };
+        if (!LEVEL_OF_STUDY_OPTIONS.includes(data.levelOfStudy)) return { success: false };
+        if (!GRADUATION_YEAR_OPTIONS.includes(data.graduationYear)) return { success: false };
+        if (!RACE_OPTIONS.includes(data.race)) return { success: false };
+        if (!Array.isArray(data.dietaryRestrictions) || !data.dietaryRestrictions.every(x => DIETARY_OPTIONS.includes(x))) return { success: false };
+        if (!YES_NO_OPTIONS.includes(data.firstTimeHacker)) return { success: false };
+        if (!Array.isArray(data.gainFromVandyHacks) || !data.gainFromVandyHacks.every(x => GAIN_FROM_VANDYHACKS_OPTIONS.includes(x))) return { success: false };
+        if (!SHIRT_SIZES.includes(data.shirtSize)) return { success: false };
+        if (!YES_NO_OPTIONS.includes(data.overnight)) return { success: false };
+        if (!YES_NO_OPTIONS.includes(data.usStatus)) return { success: false };
+        if (!YES_NO_OPTIONS.includes(data.volunteerContact)) return { success: false };
+
+        const applicant = new Applicant({ ...data, email: session.user.email });
 
         await applicant.save();
         return { success: true };

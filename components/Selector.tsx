@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import { Controller } from "react-hook-form";
 
-export default function Selector({ name, label, options, control, error, required = true, multiple = false, textWrap = false }: { name: string, label: string, options: string[], control: any, error?: any, multiple?: boolean, required?: boolean, textWrap?: boolean }) {
+export default function Selector({ name, label, options, control, error, required = true, fieldRef, multiple = false, textWrap = false }: { name: string, label: string, options: string[], control: any, fieldRef: any, error?: any, multiple?: boolean, required?: boolean, textWrap?: boolean }) {
     
     const rules = {
         required: required ? (label.length > 30 || label.includes("?") ? "Please select an answer." : `${label} is required.`) : false, 
@@ -10,7 +10,7 @@ export default function Selector({ name, label, options, control, error, require
     }
     
     return (
-        <div className="flex flex-col items-center text-center text-sm md:text-lg">
+        <div ref={fieldRef} className="flex flex-col items-center text-center text-sm md:text-lg">
             <p className={textWrap ? "" : "text-nowrap"}>
                 {label}{required && <span className="text-red-500 relative -translate-y-[3px] inline-block flex-inline">{"*"}</span>}
             </p>

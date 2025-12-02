@@ -1,4 +1,4 @@
-import { pressStart2P } from "@/app/layout";
+import { pressStart2P } from "@/components/Fonts";
 import { cn } from "@/lib/utils";
 import { animate } from "motion";
 import { AnimatePresence, motion } from "motion/react";

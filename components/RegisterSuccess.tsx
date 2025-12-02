@@ -1,4 +1,5 @@
-import { pressStart2P } from "@/app/layout";
+import { pressStart2P } from "@/components/Fonts";
+import Link from "next/link";
 
 export default function RegisterSuccess({ email }: { email: string }) {
     return (
@@ -8,9 +9,9 @@ export default function RegisterSuccess({ email }: { email: string }) {
             <p className="mb-15 text-sm text-stone-200 text-center">Signed in as: {email}</p>
             <p className="absolute top-1/2 left-1/2 w-[80%] -translate-y-1/2 -translate-x-1/2 text-[15px] sm:text-[20px] md:text-[25px] text-center">
                 Thank you for applying! We will reach out to you soon.
-                <a href="/" className="underline block text-[10px] sm:text-[15px] md:text-[20px] mt-1">
+                <Link href="/" className="underline block text-[10px] sm:text-[15px] md:text-[20px] mt-1">
                     Go Home
-                </a>
+                </Link>
             </p>
         </div>
     );

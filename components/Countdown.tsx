@@ -32,43 +32,25 @@ const useTimer = (unit: "Day" | "Hour" | "Minute" | "Second") => {
         timeRef.current = time;
     }, [time]);
 
-    const handleCountdown = async () => {
-        
-        const newTime = getTimeValue();
-
-        if (newTime !== timeRef.current) {
-
-            if (ref.current) {
-                await animate(
-                    ref.current,
-                    { y: ["0%", "-50%"], opacity: [1, 0] },
-                    { duration: 0.35 }
-                );
-            }
-
-            timeRef.current = newTime;
-            setTime(newTime);
-
-            if (ref.current) {
-                await animate(
-                    ref.current,
-                    { y: ["50%", "0%"], opacity: [0, 1] },
-                    { duration: 0.35 }
-                );
-            }
-
-        }
-
-    };
-
     useEffect(() => {
 
-        intervalRef.current = setInterval(handleCountdown, 1000);
+        const handle = async () => {
+            const newTime = getTimeValue();
+
+            if (newTime !== timeRef.current) {
+                if (ref.current) await animate(ref.current, { y: ["0%", "-50%"], opacity: [1, 0] }, { duration: 0.35 });
+                timeRef.current = newTime;
+                setTime(newTime);
+                if (ref.current) await animate(ref.current, { y: ["50%", "0%"], opacity: [0, 1] }, { duration: 0.35 });
+            }
+        };
+
+        intervalRef.current = setInterval(() => { void handle(); }, 1000);
         return () => {
             if (intervalRef.current) clearInterval(intervalRef.current);
         };
 
-    }, [handleCountdown]);
+    }, [animate, ref]);
 
     return { ref, time };
 };

@@ -8,15 +8,12 @@ export default function SignIn() {
 
     const onClick = async () => {
         try {
-            const data = await oauthClient.signIn.social({
+            await oauthClient.signIn.social({
                 provider: "google",
                 callbackURL: "/register"
             });
-            if (data.error) {
-                console.error("OAuth error:", data.error);
-            }
-        } catch (err: any) {
-            console.error("Unexpected sign-in error:", err);
+        } catch (err: unknown) {
+         
         }
     }
     

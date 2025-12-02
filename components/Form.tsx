@@ -1,11 +1,11 @@
 'use client'
 
-import { pressStart2P } from "@/app/layout";
+import { pressStart2P } from "@/components/Fonts";
 import { useForm } from "react-hook-form";
 import InputField from "./InputField";
 import Selector from "./Selector";
 import { submitForm } from "@/database/functions"
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   GENDER_OPTIONS,
   LEVEL_OF_STUDY_OPTIONS,
@@ -23,35 +23,32 @@ export default function Form({ email }: { email: string }) {
         register,
         handleSubmit,
         control,
-        formState: { errors, isSubmitting },
+        formState: { errors, isSubmitting, submitCount },
     } = useForm({
         mode: "onBlur",
         shouldUnregister: true
     });
 
-    const submitted = useRef(false);
     const [error, setError] = useState<string>("");
     const fieldRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-    const onSubmit = async (data: any) => {
-        if (submitted.current) return; 
-        submitted.current = true;
+    useEffect(() => {
+        const firstErrorKey = Object.keys(errors)[0];
+        if (submitCount > 0 && firstErrorKey) {
+            const ref = fieldRefs.current[firstErrorKey];
+            if (ref) {
+                ref.scrollIntoView({ behavior: "instant", block: "center" });
+            }
+        }
+    }, [submitCount, errors]);
 
+    const onSubmit = async (data: any) => {
         const result = await submitForm(data);
         if (result?.success) {
             window.location.reload();
         }
         else {
             setError(result.error || "An error occurred. Please try again later.")
-            submitted.current = false;
-        }
-    };
-
-    const onError = (errors: any) => {
-        const firstErrorKey = Object.keys(errors)[0];
-        const ref = fieldRefs.current[firstErrorKey];
-        if (ref) {
-            ref.scrollIntoView({ behavior: "instant", block: "center" });
         }
     };
 
@@ -60,7 +57,7 @@ export default function Form({ email }: { email: string }) {
             <h1 className="text-[35px] sm:text-[50px] md:text-[64px] uppercase header-text-shadow text-center">vandyhacks xii</h1>
             <h2 className="text-[15px] sm:text-[20px] md:text-[30px] text-stone-200 mb-3 uppercase text-center">register</h2>
             <p className="mb-15 text-sm text-stone-200 text-center">Signed in as: {email}</p>
-            <form onSubmit={handleSubmit(onSubmit, onError)} className="w-full max-w-2xl mx-auto px-10 md:px-0">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-2xl mx-auto px-10 md:px-0">
                 <div className="md:grid md:auto-cols-fr md:gap-2 text-stone-200 space-y-5">
                     <InputField name="name" type="text" label="Full Name" register={register} error={errors.name} validation={{ 
                         required: "Name is required.", 

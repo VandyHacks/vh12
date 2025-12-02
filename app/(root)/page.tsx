@@ -2,14 +2,20 @@
 
 import Countdown from "@/components/Countdown";
 import { motion } from "motion/react";
-import { pressStart2P, vt323 } from "../layout"
-import Image from "next/image";
+import { pressStart2P, vt323 } from "@/components/Fonts"
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button"
+import { useEffect } from "react";
 
 export default function Home() {
 
 	const router = useRouter();
+	useEffect(() => {
+		console.log(
+			"%c🐞 Found a bug? Please send a message to bug@vandyhacks.org with any concerns!",
+			"color: white; font-size: 16px; font-weight: bold; padding: 4px;"
+		);
+	}, []);
 
 	return (
 		<div className="overflow-hidden">

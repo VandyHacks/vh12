@@ -1,13 +1,18 @@
 'use client'
 
 import Countdown from "@/components/Countdown";
-import { pressStart2P, vt323 } from "./layout";
 import { motion } from "motion/react";
+import { pressStart2P, vt323 } from "../layout"
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+
+	const router = useRouter();
+
 	return (
-		<div className="h-screen w-full">
-			<div style={{ backgroundImage: "url(stars_random_full.png)", backgroundSize: "cover", backgroundRepeat: "no-repeat" }} className="absolute inset-0 -z-1 overflow-hidden"/>
+		<>
+			<div className="absolute inset-0 -z-1 overflow-hidden"/>
 			<div style={{ lineHeight: "normal" }} className={`${vt323.className} absolute bottom-1 w-full text-center text-[15px] md:text-[30px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
 				Unleash your creativity at our hackathon—step in like a player, imagine wildly, and build what you wish existed.
 				Team up, level up, and speed-run ideas from sketch to demo. Whether you`re a coder, designer, or storyteller, bring your spark and craft something unforgettable together. Be bold, be playful, be curious.
@@ -35,7 +40,7 @@ export default function Home() {
 						scale: 1
 					}}
 					whileHover={{
-						scale: 1.07
+						scale: 1.05
 					}}
 					whileTap={{
 						scale: 0.95
@@ -43,10 +48,11 @@ export default function Home() {
 					transition={{
 						type: "spring"
 					}}
+					onClick={() => router.push("/sign-in")}
 				>
-					<img src="apply_button.svg" width={450} height={61} className=""/>
+					<Image src="apply_button.svg" alt="Apply button" width={450} height={61} className=""/>
 				</motion.div>
 			</div>
-		</div>
+		</>
 	);
 }

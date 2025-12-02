@@ -1,3 +1,5 @@
+'use client'
+
 import { useAnimate } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
@@ -7,7 +9,7 @@ const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;
 const DAY = HOUR * 24;
 
-const useTimer = (unit: any) => {
+const useTimer = (unit: "Day" | "Hour" | "Minute" | "Second") => {
     const [ref, animate] = useAnimate();
 
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -26,7 +28,9 @@ const useTimer = (unit: any) => {
 
     const [time, setTime] = useState<number>(getTimeValue());
 
-    timeRef.current = time;
+    useEffect(() => {
+        timeRef.current = time;
+    }, [time]);
 
     const handleCountdown = async () => {
         
@@ -64,14 +68,14 @@ const useTimer = (unit: any) => {
             if (intervalRef.current) clearInterval(intervalRef.current);
         };
 
-    }, []);
+    }, [handleCountdown]);
 
     return { ref, time };
 };
 
 const CountdownItem = ({ unit, text }: { unit: string, text: string }) => {
 
-    const { ref, time } = useTimer(unit);
+    const { ref, time } = useTimer(unit as "Day" | "Hour" | "Minute" | "Second");
     return (
         <div>
             <p ref={ref} className="text-[30px] md:text-[60px]">{time}</p>

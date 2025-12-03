@@ -19,7 +19,7 @@ export default function Home() {
 
 	return (
 		<div className="overflow-hidden">
-			<div style={{ lineHeight: "normal" }} className={`${vt323.className} absolute bottom-1 w-full text-center text-[15px] md:text-[30px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
+			<div style={{ lineHeight: "normal" }} className={`${vt323.className} absolute bottom-1 w-full text-center text-[15px] md:text-[25px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
 				Unleash your creativity at our hackathon—step in like a player, imagine wildly, and build what you wish existed.
 				Team up, level up, and speed-run ideas from sketch to demo. Whether you`re a coder, designer, or storyteller, bring your spark and craft something unforgettable together. Be bold, be playful, be curious.
 				This hackathon is your sandbox to prototype dreams, remix tech, and push limits.
@@ -41,7 +41,7 @@ export default function Home() {
 					</div>
 				</div>
 				<motion.div
-					className="w-full absolute top-3/4 -translate-y-1/2 left-1/2 -translate-x-1/2 pointer-events-none cursor-pointer"
+					className="w-full absolute top-3/4 -translate-y-1/2 left-1/2 -translate-x-1/2 pointer-events-none cursor-pointer outline-none active:outline-none"
 					initial={{ scale: 1 }}
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}

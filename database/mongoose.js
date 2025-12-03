@@ -1,7 +1,6 @@
-import { getSecret } from "@/lib/utils";
 import mongoose from "mongoose";
 
-const MONGODB_URI = getSecret("MONGODB_URI");
+const MONGODB_URI = process.env.MONGODB_URI;
 
 global.mongooseCache = global.mongooseCache || {
     conn: null,

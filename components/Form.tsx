@@ -4,8 +4,9 @@ import { pressStart2P } from "@/components/Fonts";
 import { useForm } from "react-hook-form";
 import InputField from "./InputField";
 import Selector from "./Selector";
-import { submitForm } from "@/database/functions"
-import { useCallback, useEffect, useRef, useState } from "react";
+import { submitForm } from "@/database/actions"
+import { useEffect, useRef, useState } from "react";
+import FileInput from "./FileInput";
 import {
   GENDER_OPTIONS,
   LEVEL_OF_STUDY_OPTIONS,
@@ -43,12 +44,23 @@ export default function Form({ email }: { email: string }) {
     }, [submitCount, errors]);
 
     const onSubmit = async (data: any) => {
-        const result = await submitForm(data);
-        if (result?.success) {
-            window.location.reload();
+        try {
+
+            const files = new FormData();
+            if (data.resume && data.resume[0]) {
+                files.append("resume", data.resume[0]);
+            }
+
+            const result = await submitForm(data, files);
+            if (result?.success) {
+                window.location.reload();
+            }
+            else {
+                setError(result.error || "An error occurred. Please try again later.")
+            }
         }
-        else {
-            setError(result.error || "An error occurred. Please try again later.")
+        catch (e: unknown) {
+            setError("An error occurred. Please try again later.");
         }
     };
 
@@ -110,6 +122,22 @@ export default function Form({ email }: { email: string }) {
                             options={GRADUATION_YEAR_OPTIONS}
                             error={errors.graduationYear}
                             fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["graduationYear"] = ref} 
+                        />
+                    </div>
+                    <div className="col-span-2">
+                        <FileInput 
+                            name="resume" 
+                            label="Resume" 
+                            register={register} 
+                            error={errors.resume} 
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["resume"] = ref} validation={{
+                            validate: (files: FileList) => {
+                                    if (!files || files.length === 0) return true;
+                                    if (files.length > 1) return "Upload only one file.";
+                                    if (files[0].size === 0 ) return "File does not exist.";
+                                    return files[0].size <= 500 * 1024 || "File too large (max 500kB)";
+                                }
+                            }}
                         />
                     </div>
                     <div className="col-span-2">

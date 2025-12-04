@@ -54,7 +54,8 @@ const ApplicantSchema = new mongoose.Schema({
     shirtSize: { type: String, enum: SHIRT_SIZES, required: true },
     overnight: { type: String, enum: YES_NO_OPTIONS, required: true },
     usStatus: { type: String, enum: YES_NO_OPTIONS, required: true },
-    volunteerContact: { type: String, enum: YES_NO_OPTIONS, required: true }
+    volunteerContact: { type: String, enum: YES_NO_OPTIONS, required: true },
+    resume: { type: String }
 });
 
 export const Applicant = mongoose.models.Applicant || mongoose.model("Applicant", ApplicantSchema);

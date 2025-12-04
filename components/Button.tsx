@@ -1,6 +1,6 @@
 import { pressStart2P } from "@/components/Fonts";
 import { cn } from "@/lib/utils";
-import { animate } from "motion";
+import { Variants } from "motion/react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRef, useState } from "react";
 
@@ -22,7 +22,7 @@ export default function Button({ text, onClick, animate = false }: { text: strin
 
     };
 
-    const variants: any = {
+    const variants: Variants = {
         initial: {
             y: 4,
             opacity: 0
@@ -55,10 +55,10 @@ export default function Button({ text, onClick, animate = false }: { text: strin
                         key="loader"
                         className="flex flex-row gap-2 items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                     >
-                        <motion.div variants={variants} className="w-[10px] h-[10px] rounded-full bg-[#9245C9]"></motion.div>
-                        <motion.div variants={variants} className="w-[10px] h-[10px] rounded-full bg-[#9245C9]"></motion.div>
-                        <motion.div variants={variants} className="w-[10px] h-[10px] rounded-full bg-[#9245C9]"></motion.div>
-                        <motion.div variants={variants} className="w-[10px] h-[10px] rounded-full bg-[#9245C9]"></motion.div>
+                        <motion.div variants={variants} className="size-[6px] md:size-[10px] rounded-full bg-[#9245C9]"></motion.div>
+                        <motion.div variants={variants} className="size-[6px] md:size-[10px] rounded-full bg-[#9245C9]"></motion.div>
+                        <motion.div variants={variants} className="size-[6px] md:size-[10px] rounded-full bg-[#9245C9]"></motion.div>
+                        <motion.div variants={variants} className="size-[6px] md:size-[10px] rounded-full bg-[#9245C9]"></motion.div>
                     </motion.div>
                         :
                     <motion.p 

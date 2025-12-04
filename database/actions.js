@@ -3,8 +3,9 @@
 import { connectToDatabase } from "@/database/mongoose"
 import { Applicant } from "@/database/schemas"
 import { auth } from "@/lib/auth/auth";
-import { success } from "better-auth";
 import { headers } from "next/headers";
+import { uploadResume } from "@/lib/aws"
+import { fileTypeFromBuffer } from 'file-type';
 import {
   GENDER_OPTIONS,
   LEVEL_OF_STUDY_OPTIONS,
@@ -15,8 +16,9 @@ import {
   SHIRT_SIZES,
   YES_NO_OPTIONS,
 } from '@/lib/constants'
+import { success } from "better-auth";
 
-export const submitForm = async (data) => {
+export const submitForm = async (data, files) => {
 
     try {
 
@@ -28,7 +30,7 @@ export const submitForm = async (data) => {
 
         await connectToDatabase();
         const alreadyApplied = Boolean(await Applicant.exists({ email: session.user.email }));
-        if (alreadyApplied) return { success: false, error: "You have already applied!" };
+        if (alreadyApplied) return { success: false, error: "You have already applied! If this seems to be incorrect, please contact support." };
 
         for (const k in data) {
             if (typeof data[k] === 'string') data[k] = data[k].trim();
@@ -68,21 +70,36 @@ export const submitForm = async (data) => {
         if (!GRADUATION_YEAR_OPTIONS.includes(data.graduationYear)) return { success: false };
         if (!RACE_OPTIONS.includes(data.race)) return { success: false };
         if (!Array.isArray(data.dietaryRestrictions) || !data.dietaryRestrictions.every(x => DIETARY_OPTIONS.includes(x))) return { success: false };
+        if (new Set(data.dietaryRestrictions).size !== data.dietaryRestrictions.length) return { success: false };
         if (!YES_NO_OPTIONS.includes(data.firstTimeHacker)) return { success: false };
         if (!Array.isArray(data.gainFromVandyHacks) || !data.gainFromVandyHacks.every(x => GAIN_FROM_VANDYHACKS_OPTIONS.includes(x))) return { success: false };
+        if (new Set(data.gainFromVandyHacks).size !== data.gainFromVandyHacks.length) return { success: false };
         if (!SHIRT_SIZES.includes(data.shirtSize)) return { success: false };
         if (!YES_NO_OPTIONS.includes(data.overnight)) return { success: false };
         if (!YES_NO_OPTIONS.includes(data.usStatus)) return { success: false };
         if (!YES_NO_OPTIONS.includes(data.volunteerContact)) return { success: false };
 
-        const applicant = new Applicant({ ...data, email: session.user.email });
+        let resumeKey = "";
+        if (files.has("resume")) {
+            const file = files.get("resume");
+            if (!(file instanceof File)) return { success: false };
+            if (file.size > 500 * 1024) return { success: false };
+            const bytes = await file.arrayBuffer();
+            const buffer = Buffer.from(bytes);
+            const type = await fileTypeFromBuffer(buffer);
+            if (!type || type.ext != "pdf") return { success: false };
+            resumeKey = await uploadResume(buffer, type.mime);
+            if (resumeKey === null) return { success: false }
+        }
+
+        const applicant = new Applicant({ ...data, email: session.user.email, resume: resumeKey });
 
         await applicant.save();
         return { success: true };
 
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
         return { success: false };
     }
 

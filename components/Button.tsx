@@ -10,8 +10,11 @@ export default function Button({ text, onClick, animate = false }: { text: strin
     const clickedRef = useRef<boolean>(false);
 
     useEffect(() => {
-        setClicked(false);
-        clickedRef.current = false;
+        const id = setTimeout(() => {
+            setClicked(false);
+            clickedRef.current = false;
+        }, 0);
+        return () => clearTimeout(id);
     }, []);
 
     const onClick_ = async () => {

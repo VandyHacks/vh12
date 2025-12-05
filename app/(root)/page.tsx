@@ -6,6 +6,7 @@ import { pressStart2P, vt323 } from "@/components/Fonts"
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button"
 import { useEffect } from "react";
+import Background from "@/components/Background";
 
 export default function Home() {
 
@@ -18,36 +19,39 @@ export default function Home() {
 	}, []);
 
 	return (
-		<div style={{ lineHeight: "normal" }} className="pt-12 pb-8 lg:pt-25 lg:pb-25 h-full auto-rows-fr relative grid sm-landscape-grid place-items-center">
-			<div style={{ lineHeight: "normal" }} className={`${vt323.className} opacity-0 lg:opacity-100 absolute bottom-[1px] w-full text-center text-[15px] md:text-[25px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
-				Unleash your creativity at our hackathon—step in like a player, imagine wildly, and build what you wish existed.
-				Team up, level up, and speed-run ideas from sketch to demo. Whether you`re a coder, designer, or storyteller, bring your spark and craft something unforgettable together. Be bold, be playful, be curious.
-				This hackathon is your sandbox to prototype dreams, remix tech, and push limits.
+		<>
+			<Background/>
+			<div style={{ lineHeight: "normal" }} className="pt-12 pb-8 lg:pt-25 lg:pb-25 h-full auto-rows-fr relative grid sm-landscape-grid place-items-center">
+				<div style={{ lineHeight: "normal" }} className={`${vt323.className} opacity-0 lg:opacity-100 absolute bottom-[1px] w-full text-center text-[15px] md:text-[25px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
+					Unleash your creativity at our hackathon—step in like a player, imagine wildly, and build what you wish existed.
+					Team up, level up, and speed-run ideas from sketch to demo. Whether you`re a coder, designer, or storyteller, bring your spark and craft something unforgettable together. Be bold, be playful, be curious.
+					This hackathon is your sandbox to prototype dreams, remix tech, and push limits.
+				</div>
+				<div className={`${vt323.className} sm-landscape-countdown mb-10 flex justify-center items-center flex-col gap-[10px]`}>
+					<p className="text-[25px] md:text-[36px] bg-[linear-gradient(90deg,#4733AE_0%,#AA52E9_100%)] text-transparent bg-clip-text inline-block">Hacking ends in!</p>
+					<p className="text-[37px] md:text-[50px] bg-[linear-gradient(90deg,#731914_0%,#D93025_99.99%)] text-transparent bg-clip-text inline-block">Hurry Up</p>
+					<Countdown/>
+				</div>
+				<div className={`${pressStart2P.className} w-full`}>
+					<h1 className="text-[30px] relative landscape:translate-y-[10px] sm:text-[50px] mx-8 md:text-[64px] uppercase header-text-shadow mb-[20px] text-center">vandyhacks xii</h1>
+					<h2 
+						className="w-full bg-[linear-gradient(90deg,#4733AE_0%,#9245C9_69.23%,#AA52E9_100%)] leading-normal md:leading-[42px] whitespace-nowrap text-nowrap whitespace-pre text-center text-[9px] md:text-[20px] text-transparent bg-clip-text inline-block"
+					>
+						{"Vanderbilt`s Collegiate Hackathon\nNashville, TN | Mar. 23-24"}
+					</h2>
+				</div>
+				<div className="w-full overflow-hidden">
+					<motion.div
+						className="w-full pointer-events-none cursor-pointer outline-none active:outline-none"
+						initial={{ scale: 1 }}
+						whileHover={{ scale: 1.05 }}
+						whileTap={{ scale: 0.95 }}
+						transition={{ type: "spring" }}
+					>
+						<Button text="Apply Now" animate onClick={() => router.push("/sign-in")} />
+					</motion.div>
+				</div>
 			</div>
-			<div className={`${vt323.className} sm-landscape-countdown mb-10 flex justify-center items-center flex-col gap-[10px]`}>
-				<p className="text-[25px] md:text-[36px] bg-[linear-gradient(90deg,#4733AE_0%,#AA52E9_100%)] text-transparent bg-clip-text inline-block">Hacking ends in!</p>
-				<p className="text-[37px] md:text-[50px] bg-[linear-gradient(90deg,#731914_0%,#D93025_99.99%)] text-transparent bg-clip-text inline-block">Hurry Up</p>
-				<Countdown/>
-			</div>
-			<div className={`${pressStart2P.className} w-full`}>
-				<h1 className="text-[30px] relative landscape:translate-y-[10px] sm:text-[50px] mx-8 md:text-[64px] uppercase header-text-shadow mb-[20px] text-center">vandyhacks xii</h1>
-				<h2 
-					className="w-full bg-[linear-gradient(90deg,#4733AE_0%,#9245C9_69.23%,#AA52E9_100%)] leading-normal md:leading-[42px] whitespace-nowrap text-nowrap whitespace-pre text-center text-[9px] md:text-[20px] text-transparent bg-clip-text inline-block"
-				>
-					{"Vanderbilt`s Collegiate Hackathon\nNashville, TN | Mar. 23-24"}
-				</h2>
-			</div>
-			<div className="w-full overflow-hidden">
-				<motion.div
-					className="w-full pointer-events-none cursor-pointer outline-none active:outline-none"
-					initial={{ scale: 1 }}
-					whileHover={{ scale: 1.05 }}
-					whileTap={{ scale: 0.95 }}
-					transition={{ type: "spring" }}
-				>
-					<Button text="Apply Now" animate onClick={() => router.push("/sign-in")} />
-				</motion.div>
-			</div>
-		</div>
+		</>
 	);
 }

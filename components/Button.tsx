@@ -10,11 +10,14 @@ export default function Button({ text, onClick, animate = false }: { text: strin
     const clickedRef = useRef<boolean>(false);
 
     useEffect(() => {
-        const id = setTimeout(() => {
-            setClicked(false);
-            clickedRef.current = false;
-        }, 0);
-        return () => clearTimeout(id);
+        const handlePageShow = (event: PageTransitionEvent) => {
+            if (event.persisted) {
+                setClicked(false);
+                clickedRef.current = false;
+            }
+        };
+        window.addEventListener("pageshow", handlePageShow);
+        return () => window.removeEventListener("pageshow", handlePageShow);
     }, []);
 
     const onClick_ = async () => {

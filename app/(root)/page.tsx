@@ -19,7 +19,7 @@ export default function Home() {
 	}, []);
 
 	return (
-		<div style={{ lineHeight: "normal" }} className="pt-12 pb-8 lg:pt-25 lg:pb-25 h-full auto-rows-fr relative grid sm-landscape-grid place-items-center">
+		<div style={{ lineHeight: "normal" }} className="pt-12 pb-8 lg:pt-25 lg:pb-25 h-full auto-rows-fr relative grid sm-landscape-grid place-items-center z-1">
 			<Background/>
 			<div className={`${vt323.className} opacity-0 lg:opacity-100 absolute bottom-[1px] w-full text-center text-[15px] md:text-[25px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
 				Unleash your creativity at our hackathon—step in like a player, imagine wildly, and build what you wish existed.
@@ -32,7 +32,7 @@ export default function Home() {
 				<Countdown/>
 			</div>
 			<div className={`${pressStart2P.className} w-full`}>
-				<h1 className="text-[30px] relative landscape:translate-y-[10px] sm:text-[50px] mx-8 md:text-[64px] uppercase header-text-shadow mb-[20px] text-center">vandyhacks xii</h1>
+				<h1 className="text-[30px] relative landscape:translate-y-[10px] sm:text-[50px] mx-8 md:text-[64px] uppercase header-text-shadow mb-[20px] text-center z-3">vandyhacks xii</h1>
 				<h2 
 					className="w-full bg-[linear-gradient(90deg,#4733AE_0%,#9245C9_69.23%,#AA52E9_100%)] leading-normal md:leading-[42px] whitespace-nowrap text-nowrap whitespace-pre text-center text-[9px] md:text-[20px] text-transparent bg-clip-text inline-block"
 				>

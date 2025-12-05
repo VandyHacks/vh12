@@ -12,7 +12,7 @@ export default function Home() {
 	const router = useRouter();
 	useEffect(() => {
 		console.log(
-			"%c🐞 Found a bug? Please send a message to bug@vandyhacks.org describing the issue!",
+			"%c🐞 Found a bug? Please send a message to dev@vandyhacks.org describing the issue!",
 			"color: white; font-size: 16px; font-weight: bold; padding: 4px;"
 		);
 	}, []);

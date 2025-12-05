@@ -13,7 +13,7 @@ export default function SignIn() {
                 callbackURL: "/register"
             });
         } catch (err: unknown) {
-         
+
         }
     }
     

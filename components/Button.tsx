@@ -2,13 +2,17 @@ import { pressStart2P } from "@/components/Fonts";
 import { cn } from "@/lib/utils";
 import { Variants } from "motion/react";
 import { AnimatePresence, motion } from "motion/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Button({ text, onClick, animate = false }: { text: string, onClick?: () => Promise<void> | void, animate?: boolean }) {
 
     const [clicked, setClicked] = useState<boolean>(false);
-
     const clickedRef = useRef<boolean>(false);
+
+    useEffect(() => {
+        setClicked(false);
+        clickedRef.current = false;
+    }, []);
 
     const onClick_ = async () => {
 

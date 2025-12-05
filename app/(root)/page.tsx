@@ -19,12 +19,12 @@ export default function Home() {
 
 	return (
 		<div className="overflow-hidden h-[100dvh] relative">
-			<div style={{ lineHeight: "normal" }} className={`${vt323.className} absolute bottom-[1px] w-full text-center text-[15px] md:text-[25px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
+			<div style={{ lineHeight: "normal" }} className={`${vt323.className} sm:opacity-0 absolute bottom-[1px] w-full text-center text-[15px] md:text-[25px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
 				Unleash your creativity at our hackathon—step in like a player, imagine wildly, and build what you wish existed.
 				Team up, level up, and speed-run ideas from sketch to demo. Whether you`re a coder, designer, or storyteller, bring your spark and craft something unforgettable together. Be bold, be playful, be curious.
 				This hackathon is your sandbox to prototype dreams, remix tech, and push limits.
 			</div>
-			<div style={{ lineHeight: "normal" }} className="w-full h-screen relative">
+			<div style={{ lineHeight: "normal" }} className="w-full relative">
 				<div className={`${vt323.className} absolute top-1/5 -translate-y-1/2 left-1/2 -translate-x-1/2 flex justify-center items-center flex-col gap-[10px]`}>
 					<p className="text-[25px] md:text-[36px] bg-[linear-gradient(90deg,#4733AE_0%,#AA52E9_100%)] text-transparent bg-clip-text inline-block">Hacking ends in!</p>
 					<p className="text-[37px] md:text-[50px] bg-[linear-gradient(90deg,#731914_0%,#D93025_99.99%)] text-transparent bg-clip-text inline-block">Hurry Up</p>

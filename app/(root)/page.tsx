@@ -30,15 +30,13 @@ export default function Home() {
 					<p className="text-[37px] md:text-[50px] bg-[linear-gradient(90deg,#731914_0%,#D93025_99.99%)] text-transparent bg-clip-text inline-block">Hurry Up</p>
 					<Countdown/>
 				</div>
-				<div className={`${pressStart2P.className} absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`}>
-					<h1 className="text-[30px] sm:text-[50px] md:text-[64px] uppercase header-text-shadow mb-[25px] text-center">vandyhacks xii</h1>
-					<div className="w-fit mx-auto">
-						<h2 
-							className="bg-[linear-gradient(90deg,#4733AE_0%,#9245C9_69.23%,#AA52E9_100%)] leading-normal md:leading-[42px] whitespace-nowrap text-nowrap whitespace-pre text-center text-[9px] md:text-[20px] text-transparent bg-clip-text inline-block"
-						>
-							{"Vanderbilt`s Collegiate Hackathon\nNashville, TN | Mar. 23-24"}
-						</h2>
-					</div>
+				<div className={`${pressStart2P.className} w-full absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`}>
+					<h1 className="text-[30px] sm:text-[50px] sm:mx-4 md:text-[64px] uppercase header-text-shadow mb-[25px] text-center">vandyhacks xii</h1>
+					<h2 
+						className="w-full bg-[linear-gradient(90deg,#4733AE_0%,#9245C9_69.23%,#AA52E9_100%)] leading-normal md:leading-[42px] whitespace-nowrap text-nowrap whitespace-pre text-center text-[9px] md:text-[20px] text-transparent bg-clip-text inline-block"
+					>
+						{"Vanderbilt`s Collegiate Hackathon\nNashville, TN | Mar. 23-24"}
+					</h2>
 				</div>
 				<motion.div
 					className="w-full absolute top-3/4 -translate-y-1/2 left-1/2 -translate-x-1/2 pointer-events-none cursor-pointer outline-none active:outline-none"

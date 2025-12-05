@@ -18,7 +18,7 @@ export default function Home() {
 	}, []);
 
 	return (
-		<div style={{ lineHeight: "normal" }} className="py-10 lg:py-25 h-full auto-rows-fr relative grid sm-landscape-grid place-items-center">
+		<div style={{ lineHeight: "normal" }} className="pt-12 pb-8 lg:pt-25 lg:pb-25 h-full auto-rows-fr relative grid sm-landscape-grid place-items-center">
 			<div style={{ lineHeight: "normal" }} className={`${vt323.className} opacity-0 lg:opacity-100 absolute bottom-[1px] w-full text-center text-[15px] md:text-[25px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
 				Unleash your creativity at our hackathon—step in like a player, imagine wildly, and build what you wish existed.
 				Team up, level up, and speed-run ideas from sketch to demo. Whether you`re a coder, designer, or storyteller, bring your spark and craft something unforgettable together. Be bold, be playful, be curious.

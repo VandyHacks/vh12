@@ -21,6 +21,27 @@
 }
 
 @layer utilities {
+	@media (max-height: 640px) and (orientation: landscape) {
+		.sm-landscape-countdown {
+			opacity: 0;
+			position: absolute;
+		}
+		.sm-landscape-grid {
+			grid-template-rows: 1fr 1fr;
+		}
+	}
+	@media (min-height: 640px) and (orientation: landscape) {
+		.sm-landscape-countdown {
+			opacity: 1;
+			position: static;
+		}
+		.sm-landscape-grid {
+			grid-template-rows: 1fr 1fr 1fr;
+		}
+	}
+}
+
+@layer utilities {
 
 	.header-text-shadow {
 		text-shadow: 

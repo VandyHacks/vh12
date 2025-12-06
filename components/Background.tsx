@@ -68,12 +68,18 @@ export default function Background() {
 			};
 			resize();
 			window.addEventListener("resize", resize);
-			const spawn = () => {
+			const spawn = (initial: boolean) => {
 				const img: HTMLImageElement = imagesRef.current[randInt(0, imagesRef.current.length - 1)];
-				const scale: number = randFloat(0.1, 0.23);
+				let maxScale = 0.15;
+				let minScale = 0.1;
+				if (img.src.includes("background/body")) {
+					maxScale = 0.3;
+					minScale = 0.15;
+				}
+				const scale: number = randFloat(minScale, maxScale);
 				spritesRef.current.push({
 					img,
-					x: -img.width * scale - randFloat(20, 200.0),
+					x: -img.width * scale - randFloat(10, initial ? 150 : 100),
 					y: randInt(10, cvs.height),
 					vx: randInt(30, 80),
 					vy: randInt(-10, 10),
@@ -82,8 +88,8 @@ export default function Background() {
 					vr: randFloat(-0.7, 0.7)
 				});
 			};
-			for (let i = 0; i < Math.ceil(cvs.height / 300); i++) {
-				spawn();
+			for (let i = 0; i < Math.ceil(cvs.height / 400); i++) {
+				spawn(true);
 			}
 			spritesRef.current.filter((sprite) => sprite.x < cvs.clientWidth + 150);
 			const step = (timestamp: number) => {
@@ -93,8 +99,8 @@ export default function Background() {
 				}
 				deltaRef.current = (timestamp - lastRef.current) / 1000;     
 				lastRef.current = timestamp;
-				if (lastSpawnRef.current >= 3) {
-					spawn();
+				if (lastSpawnRef.current >= 2.5) {
+					spawn(false);
 					lastSpawnRef.current = 0;
 				}
 				lastSpawnRef.current += deltaRef.current;
@@ -110,6 +116,7 @@ export default function Background() {
 					sprite.y += sprite.vy * deltaRef.current;
 					sprite.rotation += sprite.vr * deltaRef.current;
 				}
+				
 				rafRef.current = requestAnimationFrame(step);
 			};
 			rafRef.current = requestAnimationFrame(step);

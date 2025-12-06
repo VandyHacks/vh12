@@ -1,5 +1,5 @@
 import { randFloat, randInt } from "@/lib/utils";
-import { del } from "motion/react-client";
+import { del, pre } from "motion/react-client";
 import { useEffect, useRef } from "react";
 
 const bodyImages: string[] = [
@@ -50,6 +50,7 @@ export default function Background() {
 	const lastSpawnRef = useRef<number>(0);
 	const deltaRef = useRef<number>(0.016);
 	const lastRef = useRef<number>(0);
+	const prevImgRef = useRef<number>(12);
 
 	useEffect(() => {
 		let running = true;
@@ -69,7 +70,12 @@ export default function Background() {
 			resize();
 			window.addEventListener("resize", resize);
 			const spawn = (initial: boolean) => {
-				const img: HTMLImageElement = imagesRef.current[randInt(0, imagesRef.current.length - 1)];
+				let imgIndex = randInt(0, imagesRef.current.length - 1);
+				while (imgIndex === prevImgRef.current) {
+					imgIndex = randInt(0, imagesRef.current.length - 1);
+				}
+				prevImgRef.current = imgIndex;
+				const img: HTMLImageElement = imagesRef.current[imgIndex];
 				let maxScale = 0.12;
 				let minScale = 0.07;
 				if (img.src.includes("background/body")) {
@@ -79,7 +85,7 @@ export default function Background() {
 				const scale: number = randFloat(minScale, maxScale);
 				spritesRef.current.push({
 					img,
-					x: -img.width * scale - randFloat(10, initial ? 50 : 150),
+					x: -img.width * scale,
 					y: randInt(500, cvs.height),
 					vx: randInt(30, 60),
 					vy: randInt(-10, 10),
@@ -106,7 +112,7 @@ export default function Background() {
 				}
 				deltaRef.current = (timestamp - lastRef.current) / 1000;     
 				lastRef.current = timestamp;
-				if (lastSpawnRef.current >= 5.5) {
+				if (lastSpawnRef.current >= 8) {
 					spawn(false);
 					console.log("spawn");
 					lastSpawnRef.current = 0;

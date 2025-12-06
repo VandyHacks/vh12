@@ -80,7 +80,7 @@ export default function Background() {
 				spritesRef.current.push({
 					img,
 					x: -img.width * scale - randFloat(10, initial ? 50 : 150),
-					y: randInt(10, cvs.height),
+					y: randInt(500, cvs.height),
 					vx: randInt(30, 60),
 					vy: randInt(-10, 10),
 					scale,
@@ -106,8 +106,9 @@ export default function Background() {
 				}
 				deltaRef.current = (timestamp - lastRef.current) / 1000;     
 				lastRef.current = timestamp;
-				if (lastSpawnRef.current >= 4) {
+				if (lastSpawnRef.current >= 5.5) {
 					spawn(false);
+					console.log("spawn");
 					lastSpawnRef.current = 0;
 				}
 				lastSpawnRef.current += deltaRef.current;

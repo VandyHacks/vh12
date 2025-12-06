@@ -69,7 +69,7 @@ export default function Background() {
 			resize();
 			window.addEventListener("resize", resize);
 			const spawn = (initial: boolean) => {
-				const img: HTMLImageElement = imagesRef.current[randInt(0, imagesRef.current.length)];
+				const img: HTMLImageElement = imagesRef.current[randInt(0, imagesRef.current.length - 1)];
 				let maxScale = 0.12;
 				let minScale = 0.07;
 				if (img.src.includes("background/body")) {

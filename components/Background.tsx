@@ -79,7 +79,7 @@ export default function Background() {
 				const scale: number = randFloat(minScale, maxScale);
 				spritesRef.current.push({
 					img,
-					x: -img.width * scale - randFloat(10, initial ? 150 : 100),
+					x: -img.width * scale - randFloat(10, initial ? 50 : 150),
 					y: randInt(10, cvs.height),
 					vx: randInt(30, 80),
 					vy: randInt(-10, 10),

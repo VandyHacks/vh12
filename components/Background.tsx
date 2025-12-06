@@ -70,18 +70,18 @@ export default function Background() {
 			window.addEventListener("resize", resize);
 			const spawn = (initial: boolean) => {
 				const img: HTMLImageElement = imagesRef.current[randInt(0, imagesRef.current.length - 1)];
-				let maxScale = 0.15;
-				let minScale = 0.1;
+				let maxScale = 0.12;
+				let minScale = 0.07;
 				if (img.src.includes("background/body")) {
-					maxScale = 0.3;
-					minScale = 0.15;
+					maxScale = 0.26;
+					minScale = 0.12;
 				}
 				const scale: number = randFloat(minScale, maxScale);
 				spritesRef.current.push({
 					img,
 					x: -img.width * scale - randFloat(10, initial ? 50 : 150),
 					y: randInt(10, cvs.height),
-					vx: randInt(30, 80),
+					vx: randInt(30, 60),
 					vy: randInt(-10, 10),
 					scale,
 					rotation: randFloat(0, 2 * Math.PI),
@@ -99,7 +99,7 @@ export default function Background() {
 				}
 				deltaRef.current = (timestamp - lastRef.current) / 1000;     
 				lastRef.current = timestamp;
-				if (lastSpawnRef.current >= 2.5) {
+				if (lastSpawnRef.current >= 4) {
 					spawn(false);
 					lastSpawnRef.current = 0;
 				}

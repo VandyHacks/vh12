@@ -88,7 +88,7 @@ export default function Background() {
 					vr: randFloat(-0.7, 0.7)
 				});
 			};
-			for (let i = 0; i < Math.ceil(cvs.height / 400); i++) {
+			for (let i = 0; i < Math.ceil(cvs.height / 500); i++) {
 				spawn(true);
 			}
 			spritesRef.current.filter((sprite) => sprite.x < cvs.clientWidth + 150);

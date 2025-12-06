@@ -3,11 +3,11 @@ import { del, pre } from "motion/react-client";
 import { useEffect, useRef } from "react";
 
 const bodyImages: string[] = [
-	"background/body/Blue.png",
-	"background/body/Brown.png",
-	"background/body/Grey.png",
-	"background/body/Pink.png",
-	"background/body/Red.png",
+	"background/body/Blue_v2.png",
+	"background/body/Brown_v2.png",
+	"background/body/Grey_v2.png",
+	"background/body/Pink_v2.png",
+	"background/body/Red_v2.png",
 ];
 
 const normalImages: string[] = [

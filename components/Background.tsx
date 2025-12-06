@@ -69,7 +69,7 @@ export default function Background() {
 			resize();
 			window.addEventListener("resize", resize);
 			const spawn = (initial: boolean) => {
-				const img: HTMLImageElement = imagesRef.current[randInt(0, imagesRef.current.length - 1)];
+				const img: HTMLImageElement = imagesRef.current[randInt(0, imagesRef.current.length)];
 				let maxScale = 0.12;
 				let minScale = 0.07;
 				if (img.src.includes("background/body")) {
@@ -85,12 +85,19 @@ export default function Background() {
 					vy: randInt(-10, 10),
 					scale,
 					rotation: randFloat(0, 2 * Math.PI),
-					vr: randFloat(-0.7, 0.7)
+					vr: Math.random() < 0.5 ? randFloat(0.2, 0.7) : randFloat(-0.7, -0.2)
 				});
 			};
-			for (let i = 0; i < Math.ceil(cvs.height / 500); i++) {
-				spawn(true);
-			}
+			spritesRef.current.push({
+				img: imagesRef.current[12],
+				x: -imagesRef.current[12].width * 0.1,
+				y: cvs.clientHeight,
+				vx: 45,
+				vy: 3,
+				scale: 0.1,
+				rotation: Math.PI,
+				vr: 0.4
+			})
 			spritesRef.current.filter((sprite) => sprite.x < cvs.clientWidth + 150);
 			const step = (timestamp: number) => {
 				if (!running) return;
@@ -132,6 +139,6 @@ export default function Background() {
 	}, []);
 
 	return (
-		<canvas ref={canvasRef} className="absolute inset-0 w-[100dvw] h-[100dvh] pointer-events-none z-2"/>
+		<canvas ref={canvasRef} className="absolute top-0 left-0 w-[100dvw] h-[100dvh] pointer-events-none z-2"/>
 	);
 }

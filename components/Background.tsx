@@ -114,7 +114,6 @@ export default function Background() {
 				lastRef.current = timestamp;
 				if (lastSpawnRef.current >= 8) {
 					spawn(false);
-					console.log("spawn");
 					lastSpawnRef.current = 0;
 				}
 				lastSpawnRef.current += deltaRef.current;

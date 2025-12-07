@@ -1,4 +1,4 @@
-import { randFloat, randInt } from "@/lib/utils";
+import { randFloat, randInt, lerp } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 
 const bodyImages: string[] = [
@@ -175,8 +175,8 @@ export default function Background() {
 					ctx.drawImage(sprite.img, -sprite.img.width * sprite.scale / 2, -sprite.img.height * sprite.scale / 2, sprite.img.width * sprite.scale, sprite.img.height * sprite.scale);
 					ctx.restore();
 					if (sprite.grabbed) {
-						sprite.vx = mousePosRef.current.x - sprite.x;
-						sprite.vy = mousePosRef.current.y - sprite.y;
+						sprite.vx = lerp(sprite.vx, mousePosRef.current.x - sprite.x, 0.01);
+						sprite.vy = lerp(sprite.vy, mousePosRef.current.y - sprite.y, 0.01);
 					}
 					sprite.x += sprite.vx * deltaRef.current;
 					sprite.y += sprite.vy * deltaRef.current;

@@ -1,5 +1,4 @@
 import { randFloat, randInt } from "@/lib/utils";
-import { del, pre } from "motion/react-client";
 import { useEffect, useRef } from "react";
 
 const bodyImages: string[] = [
@@ -80,6 +79,7 @@ export default function Background() {
 	useEffect(() => {
 		let running = true;
 		let cleanup: null | (() => void) = null;
+		const isMobile = () => window.matchMedia("(max-width: 767px)").matches;
 		(async () => {
 			const imgs = await Promise.all([...bodyImages, ...normalImages].map(loadImage));
 			imagesRef.current = imgs;
@@ -88,19 +88,23 @@ export default function Background() {
 			const ctx = cvs.getContext("2d");
 			if (!ctx) return;
 			const resize = () => {
-				cvs.width = window.innerWidth;
-				cvs.height = window.innerHeight;
+				const dpr = Math.max(1, window.devicePixelRatio || 1);
+				cvs.width = Math.floor(cvs.clientWidth * dpr);
+				cvs.height = Math.floor(cvs.clientHeight * dpr);
+				ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 			};
 			resize();
 			const onMouseMove = (event: MouseEvent) => {
 				mousePosRef.current = { x: event.x, y: event.y };
 			}
 			const onMouseDown = (event: MouseEvent) => {
-				for (const sprite of spritesRef.current) {
-					if (isHovering(sprite, mousePosRef.current.x, mousePosRef.current.y)) {
-						document.body.style.cursor = "grabbing";
-						sprite.grabbed = true;
-						break;
+				if (!isMobile()) {
+					for (const sprite of spritesRef.current) {
+						if (isHovering(sprite, mousePosRef.current.x, mousePosRef.current.y)) {
+							document.body.style.cursor = "grabbing";
+							sprite.grabbed = true;
+							break;
+						}
 					}
 				}
 			}
@@ -142,7 +146,7 @@ export default function Background() {
 			spritesRef.current.push({
 				img: imagesRef.current[12],
 				x: -imagesRef.current[12].width * 0.1,
-				y: cvs.clientHeight / 2 - 100,
+				y: cvs.clientHeight / 2 - 50,
 				vx: 45,
 				vy: 3,
 				scale: 0.1,
@@ -150,8 +154,8 @@ export default function Background() {
 				vr: 0.4,
 				grabbed: false
 			})
-			spritesRef.current.filter((sprite) => sprite.x < cvs.clientWidth + 150);
 			const step = (timestamp: number) => {
+				spritesRef.current = spritesRef.current.filter((sprite) => sprite.x < cvs.clientWidth + 150);
 				if (!running) return;
 				if (lastRef.current === 0) {
 					lastRef.current = timestamp;      
@@ -180,10 +184,12 @@ export default function Background() {
 					
 				}
 				let hovering = false;
-				for (const sprite of spritesRef.current) {
-					if (isHovering(sprite, mousePosRef.current.x, mousePosRef.current.y)) {
-						document.body.style.cursor = "grab";
-						hovering = true;
+				if (!isMobile()) {
+					for (const sprite of spritesRef.current) {
+						if (isHovering(sprite, mousePosRef.current.x, mousePosRef.current.y)) {
+							document.body.style.cursor = "grab";
+							hovering = true;
+						}
 					}
 				}
 				if (!hovering) {

@@ -86,7 +86,7 @@ export default function Background() {
 				spritesRef.current.push({
 					img,
 					x: -img.width * scale,
-					y: randInt(500, cvs.height),
+					y: randInt(600, cvs.height - 50),
 					vx: randInt(30, 60),
 					vy: randInt(-10, 10),
 					scale,

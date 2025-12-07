@@ -31,6 +31,28 @@ const loadImage = (src: string): Promise<HTMLImageElement> => {
 	});
 }
 
+const isHovering = (sprite: Sprite, mouseX: number, mouseY: number) => {
+	const { x, y, rotation, scale, img } = sprite;
+
+	const localX = mouseX - x;
+	const localY = mouseY - y;
+
+	const cosR = Math.cos(-rotation);
+	const sinR = Math.sin(-rotation);
+
+	const rotatedX = localX * cosR - localY * sinR;
+	const rotatedY = localX * sinR + localY * cosR;
+
+	const unscaledX = rotatedX / scale;
+	const unscaledY = rotatedY / scale;
+
+	const halfWidth = img.width / 2;
+	const halfHeight = img.height / 2;
+
+	return unscaledX >= -halfWidth && unscaledX <= halfWidth && unscaledY >= -halfHeight && unscaledY <= halfHeight;
+	
+}
+
 type Sprite = {
 	img: HTMLImageElement;
 	x: number;
@@ -40,6 +62,7 @@ type Sprite = {
 	scale: number;
 	rotation: number;
 	vr: number;
+	grabbed: boolean;
 };
 
 export default function Background() {
@@ -51,9 +74,12 @@ export default function Background() {
 	const deltaRef = useRef<number>(0.016);
 	const lastRef = useRef<number>(0);
 	const prevImgRef = useRef<number>(12);
+	type Coordinate = { x: number, y: number };
+	const mousePosRef = useRef<Coordinate>({ x: 0, y: 0});
 
 	useEffect(() => {
 		let running = true;
+		let cleanup: null | (() => void) = null;
 		(async () => {
 			const imgs = await Promise.all([...bodyImages, ...normalImages].map(loadImage));
 			imagesRef.current = imgs;
@@ -62,12 +88,30 @@ export default function Background() {
 			const ctx = cvs.getContext("2d");
 			if (!ctx) return;
 			const resize = () => {
-				const dpr = Math.max(1, window.devicePixelRatio || 1);
-				cvs.width = Math.floor(cvs.clientWidth * dpr);
-				cvs.height = Math.floor(cvs.clientHeight * dpr);
-				ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+				cvs.width = window.innerWidth;
+				cvs.height = window.innerHeight;
 			};
 			resize();
+			const onMouseMove = (event: MouseEvent) => {
+				mousePosRef.current = { x: event.x, y: event.y };
+			}
+			const onMouseDown = (event: MouseEvent) => {
+				for (const sprite of spritesRef.current) {
+					if (isHovering(sprite, mousePosRef.current.x, mousePosRef.current.y)) {
+						document.body.style.cursor = "grabbing";
+						sprite.grabbed = true;
+						break;
+					}
+				}
+			}
+			const onMouseUp = (evnet: MouseEvent) => {
+				for (const sprite of spritesRef.current) {
+					sprite.grabbed = false;
+				}
+			}
+			window.addEventListener("mouseup", onMouseUp);
+			window.addEventListener("mousemove", onMouseMove);
+			window.addEventListener("mousedown", onMouseDown);
 			window.addEventListener("resize", resize);
 			const spawn = (initial: boolean) => {
 				let imgIndex = randInt(0, imagesRef.current.length - 1);
@@ -86,23 +130,25 @@ export default function Background() {
 				spritesRef.current.push({
 					img,
 					x: -img.width * scale,
-					y: randInt(600, cvs.height - 50),
+					y: randInt(100, cvs.clientHeight - 50),
 					vx: randInt(30, 60),
 					vy: randInt(-10, 10),
 					scale,
 					rotation: randFloat(0, 2 * Math.PI),
-					vr: Math.random() < 0.5 ? randFloat(0.2, 0.7) : randFloat(-0.7, -0.2)
+					vr: Math.random() < 0.5 ? randFloat(0.2, 0.7) : randFloat(-0.7, -0.2),
+					grabbed: false
 				});
 			};
 			spritesRef.current.push({
 				img: imagesRef.current[12],
 				x: -imagesRef.current[12].width * 0.1,
-				y: cvs.clientHeight,
+				y: cvs.clientHeight / 2 - 100,
 				vx: 45,
 				vy: 3,
 				scale: 0.1,
 				rotation: Math.PI,
-				vr: 0.4
+				vr: 0.4,
+				grabbed: false
 			})
 			spritesRef.current.filter((sprite) => sprite.x < cvs.clientWidth + 150);
 			const step = (timestamp: number) => {
@@ -120,27 +166,44 @@ export default function Background() {
 				ctx.clearRect(0, 0, cvs.clientWidth, cvs.clientHeight);
 				for (const sprite of spritesRef.current) {
 					ctx.save();
-					ctx.translate(sprite.x + sprite.img.naturalWidth * sprite.scale / 2, sprite.y - sprite.img.naturalHeight / 2);
+					ctx.translate(sprite.x, sprite.y);
 					ctx.rotate(sprite.rotation);
-					ctx.scale(sprite.scale, sprite.scale);
-					ctx.drawImage(sprite.img, -sprite.img.naturalWidth / 2, -sprite.img.naturalHeight / 2);
+					ctx.drawImage(sprite.img, -sprite.img.width * sprite.scale / 2, -sprite.img.height * sprite.scale / 2, sprite.img.width * sprite.scale, sprite.img.height * sprite.scale);
 					ctx.restore();
+					if (sprite.grabbed) {
+						sprite.vx = mousePosRef.current.x - sprite.x;
+						sprite.vy = mousePosRef.current.y - sprite.y;
+					}
 					sprite.x += sprite.vx * deltaRef.current;
 					sprite.y += sprite.vy * deltaRef.current;
 					sprite.rotation += sprite.vr * deltaRef.current;
+					
 				}
-				
+				let hovering = false;
+				for (const sprite of spritesRef.current) {
+					if (isHovering(sprite, mousePosRef.current.x, mousePosRef.current.y)) {
+						document.body.style.cursor = "grab";
+						hovering = true;
+					}
+				}
+				if (!hovering) {
+					document.body.style.cursor = "default";
+				}
 				rafRef.current = requestAnimationFrame(step);
 			};
 			rafRef.current = requestAnimationFrame(step);
-			return () => {
+			cleanup = () => {
 				running = false;
 				if (rafRef.current) cancelAnimationFrame(rafRef.current);
 				window.removeEventListener("resize", resize);
+				window.removeEventListener("mousemove", onMouseMove);
+				window.removeEventListener("mousedown", onMouseDown);
+				window.removeEventListener("mouseup", onMouseUp);
 			};
 		})();
 		return () => {
 			if (rafRef.current) cancelAnimationFrame(rafRef.current);
+			if (cleanup) cleanup();
 		};
 	}, []);
 

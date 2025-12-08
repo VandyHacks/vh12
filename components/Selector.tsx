@@ -58,7 +58,7 @@ export default function Selector({ name, label, options, control, error, require
                 </div>
             }}/>
             {
-                error && <p className="text-[10px] md:text-sm text-red-500 mt-2.5 ml-1">{error.message}</p>
+                error && <p className="text-[11px] text-red-500 mt-2.5 ml-1">{error.message}</p>
             }
         </div>
     );

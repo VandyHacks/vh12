@@ -214,6 +214,6 @@ export default function Background() {
 	}, []);
 
 	return (
-		<canvas ref={canvasRef} className="absolute top-0 left-0 w-[100dvw] h-[100dvh] pointer-events-none z-2"/>
+		<canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-2"/>
 	);
 }

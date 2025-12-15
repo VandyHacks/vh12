@@ -17,7 +17,6 @@ export default function SignIn() {
         }
     }
     
-
     return (
         <div className="overflow-hidden relative h-full">
             <motion.div

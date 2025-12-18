@@ -143,17 +143,19 @@ export default function Background() {
 					grabbed: false
 				});
 			};
-			spritesRef.current.push({
-				img: imagesRef.current[12],
-				x: -imagesRef.current[12].width * 0.1,
-				y: cvs.clientHeight / 2 - 50,
-				vx: 45,
-				vy: 3,
-				scale: 0.1,
-				rotation: Math.PI,
-				vr: 0.4,
-				grabbed: false
-			})
+			if (!isMobile) {
+				spritesRef.current.push({
+					img: imagesRef.current[12],
+					x: -imagesRef.current[12].width * 0.1,
+					y: cvs.clientHeight / 2 - 50,
+					vx: 45,
+					vy: 3,
+					scale: 0.1,
+					rotation: Math.PI,
+					vr: 0.4,
+					grabbed: false
+				})
+			}
 			const step = (timestamp: number) => {
 				spritesRef.current = spritesRef.current.filter((sprite) => sprite.x < cvs.clientWidth + 150);
 				if (!running) return;
@@ -197,7 +199,9 @@ export default function Background() {
 				}
 				rafRef.current = requestAnimationFrame(step);
 			};
-			rafRef.current = requestAnimationFrame(step);
+			if (!isMobile) {
+				rafRef.current = requestAnimationFrame(step);
+			}
 			cleanup = () => {
 				running = false;
 				if (rafRef.current) cancelAnimationFrame(rafRef.current);

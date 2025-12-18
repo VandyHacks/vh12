@@ -143,7 +143,7 @@ export default function Background() {
 					grabbed: false
 				});
 			};
-			if (!isMobile) {
+			if (!isMobile()) {
 				spritesRef.current.push({
 					img: imagesRef.current[12],
 					x: -imagesRef.current[12].width * 0.1,
@@ -199,7 +199,7 @@ export default function Background() {
 				}
 				rafRef.current = requestAnimationFrame(step);
 			};
-			if (!isMobile) {
+			if (!isMobile()) {
 				rafRef.current = requestAnimationFrame(step);
 			}
 			cleanup = () => {

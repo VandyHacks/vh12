@@ -10,7 +10,7 @@ import RegisterSuccess from "@/components/RegisterSuccess";
 
 export default async function Register() {
 
-    const session = (await auth()).api.getSession({
+    const session = await auth.api.getSession({
         headers: await headers()
     });
     if (!session) redirect("/sign-in");

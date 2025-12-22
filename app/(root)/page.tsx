@@ -32,7 +32,7 @@ export default function Home() {
 				<Countdown/>
 			</div>
 			<div className={`${pressStart2P.className} w-full`}>
-				<h1 className="text-[30px] relative landscape:translate-y-[10px] sm:text-[50px] mx-8 md:text-[64px] uppercase header-text-shadow mb-[20px] text-center z-3">vandyhacks xii</h1>
+				<h1 className="text-[30px] text-white relative landscape:translate-y-[10px] sm:text-[50px] mx-8 md:text-[64px] uppercase header-text-shadow mb-[20px] text-center z-3">vandyhacks xii</h1>
 				<h2 
 					className="w-full bg-[linear-gradient(90deg,#4733AE_0%,#9245C9_69.23%,#AA52E9_100%)] leading-normal md:leading-[42px] whitespace-nowrap text-nowrap whitespace-pre text-center text-[9px] md:text-[20px] text-transparent bg-clip-text inline-block"
 				>

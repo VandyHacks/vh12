@@ -22,7 +22,7 @@ export const submitForm = async (data, files) => {
 
     try {
 
-        const session = await auth.api.getSession({
+        const session = (await auth()).api.getSession({
             headers: await headers()
         });
 

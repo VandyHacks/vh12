@@ -1,6 +1,7 @@
 'use client'
 
 import Button from "@/components/Button";
+import StarBackground from "@/components/StarBackground";
 import { oauthClient } from "@/lib/auth/client";
 import { motion } from "motion/react";
 

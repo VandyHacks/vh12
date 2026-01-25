@@ -10,6 +10,7 @@ import Background from "@/components/Background";
 import bg from "@/public/stars_random_full.png"
 import bg1 from "@/public/about_background.png"
 import Lenis from 'lenis'
+import StarBackground from "@/components/StarBackground";
 
 export default function Home() {
 
@@ -31,19 +32,19 @@ export default function Home() {
 	useEffect(() => {
 		const onResize = () => setMobile(isMobile());
 		window.addEventListener("resize", onResize);
+		const lenis = new Lenis({
+			autoRaf: true,
+		});
 		return () => window.removeEventListener("resize", onResize);
 	}, []);
 
-	// const lenis = new Lenis({
-	// 	autoRaf: true,
-	// });
-
 
 	return (
-		<div className="">
-			<div style={{ lineHeight: "normal", backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }} className="pt-12 pb-8 h-screen lg:pt-25 lg:pb-25 h-full auto-rows-fr relative grid sm-landscape-grid place-items-center z-1">
+		<div className="relative">
+			<StarBackground/>
+			<div style={{ lineHeight: "normal" }} className="pt-12 bg-transparent pb-8 h-screen lg:pt-25 lg:pb-25 h-screen auto-rows-fr relative grid sm-landscape-grid place-items-center z-1">
 				<Background/>
-				<div className={`${vt323.className} opacity-0 lg:opacity-100 absolute bottom-[1px] w-full text-center text-[15px] md:text-[25px] bg-[linear-gradient(0deg,rgba(146,69,201,0.20)_14.58%,rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
+				<div className={`${vt323.className} sm-landscape-text absolute bottom-0 w-full text-center text-[15px] md:text-[25px] bg-[linear-gradient(0deg,rgba(146,69,201,0),rgba(146,69,201,0.40)_100%)] text-transparent bg-clip-text inline-block`}>
 					Unleash your creativity at our hackathon—step in like a player, imagine wildly, and build what you wish existed.
 					Team up, level up, and speed-run ideas from sketch to demo. Whether you`re a coder, designer, or storyteller, bring your spark and craft something unforgettable together. Be bold, be playful, be curious.
 					This hackathon is your sandbox to prototype dreams, remix tech, and push limits.
@@ -58,7 +59,7 @@ export default function Home() {
 					<h2 
 						className="w-full bg-[linear-gradient(90deg,#4733AE_0%,#9245C9_69.23%,#AA52E9_100%)] leading-normal md:leading-[42px] whitespace-nowrap text-nowrap whitespace-pre text-center text-[9px] md:text-[20px] text-transparent bg-clip-text inline-block"
 					>
-						{"Vanderbilt`s Collegiate Hackathon\nNashville, TN | Mar. 21-22"}
+						{"Vanderbilt`s Collegiate Hackathon\nNashville, TN | Mar. 23-24"}
 					</h2>
 				</div>
 				<div className="w-full overflow-hidden">
@@ -72,18 +73,16 @@ export default function Home() {
 						<Button text="Apply Now" animate onClick={() => router.push("/sign-in")} />
 					</motion.div>
 				</div>
-				{/* <div className="absolute bottom-0 left-0 right-0 h-30 bg-linear-to-b from-[#00000000 to-[#000000ff]">
-
-				</div> */}
 			</div>
-			{/* <div className="h-screen relative" style={{ backgroundImage: `url(${bg1.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
-				<div className="absolute top-0 left-0 right-0 h-30 bg-linear-to-b to-[#00000000] from-[#000000ff]"/>
-				<div className={`${pressStart2P.className} absolute top-1/2 -translate-y-1/2 sm:-translate-y-1/8 width-full mx-3 sm:mx-20`}>
-					<h1 className="sm:text-[60px] text-[30px] text-center">About</h1>
-					<p className="text-center text-[clamp(10px,1vw,13px)] mt-10" style={{ lineHeight: mobile ? "20px" : "42px" }}>Code, collaborate, learn, and network at Vanderbilt's official collegiate hackathon, VandyHacks! As one of the largest hackathons in the south, this in-person event includes both student and company-led workshops, a career fair, games, events, full two-day catering, internship panels, speaker events, and the premier 24-hour hackathon with thousand of dollars worth of prizes. VandyHacks has had thousands of projects submitted by students over the course of 12 incredible years, and we hope you can join us in this September, 28th-29th. We hope to see you on the racetrack at VandyHacks XI! Go Hackers!</p>
+			<div className="min-h-screen relative mt-2 bg-transparent flex flex-col">
+				<div className={`${pressStart2P.className} width-full flex-1 flex justify-center items-center lg:items-end sm-landscape-text-container h-full mx-5 sm:mx-20`}>
+					<div>
+						<h1 className="sm:text-[60px] text-[30px] text-center">About</h1>
+						<p className="text-center text-[clamp(10px,1vw,13px)] mt-10 leading-[20px] sm:leading-[42px]">Code, collaborate, learn, and network at Vanderbilt's official collegiate hackathon, VandyHacks! As one of the largest hackathons in the south, this in-person event includes both student and company-led workshops, a career fair, games, events, full two-day catering, internship panels, speaker events, and the premier 24-hour hackathon with thousand of dollars worth of prizes. VandyHacks has had thousands of projects submitted by students over the course of 12 incredible years, and we hope you can join us in this September, 28th-29th. We hope to see you on the racetrack at VandyHacks XI! Go Hackers!</p>
+					</div>
 				</div>
 
-			</div> */}
+			</div>
 		</div>
 	);
 }

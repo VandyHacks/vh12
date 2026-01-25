@@ -124,13 +124,10 @@ export default function Background() {
 				}
 				prevImgRef.current = imgIndex;
 				const img: HTMLImageElement = imagesRef.current[imgIndex];
-				let maxScale = 0.12;
-				let minScale = 0.07;
+				let scale: number = 0.09;
 				if (img.src.includes("background/body")) {
-					maxScale = 0.26;
-					minScale = 0.12;
+					scale = 0.2;
 				}
-				const scale: number = randFloat(minScale, maxScale);
 				spritesRef.current.push({
 					img,
 					x: -img.width * scale,
@@ -150,7 +147,7 @@ export default function Background() {
 					y: cvs.clientHeight / 2 - 50,
 					vx: 45,
 					vy: 3,
-					scale: 0.1,
+					scale: 0.09,
 					rotation: Math.PI,
 					vr: 0.4,
 					grabbed: false
@@ -218,6 +215,6 @@ export default function Background() {
 	}, []);
 
 	return (
-		<canvas ref={canvasRef} className="absolute w-screen h-screen left-0 top-0 pointer-events-none z-2"/>
+		<canvas ref={canvasRef} className="absolute w-screen h-screen left-0 top-0 pointer-events-none -z-1"/>
 	);
 }

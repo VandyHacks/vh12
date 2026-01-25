@@ -1,5 +1,6 @@
 import { pressStart2P } from "@/components/Fonts";
 import Link from "next/link";
+import StarBackground from "./StarBackground";
 
 export default function RegisterSuccess({ email }: { email: string }) {
     return (

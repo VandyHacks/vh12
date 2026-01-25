@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-	--background: #171717;
+	--background: #000000;
 	--foreground: #ffffff;
 	user-select: none;
 }
@@ -14,7 +14,7 @@
 }
 
 @layer utilities {
-	@media (max-height: 640px) and (orientation: landscape) {
+	@media (max-height: 800px) {
 		.sm-landscape-countdown {
 			opacity: 0;
 			position: absolute;
@@ -25,14 +25,26 @@
 		.sm-landscape-thank-you {
 			position: static;
 		}
+		.sm-landscape-text {
+			visibility: hidden;
+		}
+		.sm-landscape-text-container {
+			padding-bottom: 40;
+		}
 	}
-	@media (min-height: 640px) and (orientation: landscape) {
+	@media (min-height: 800px) {
 		.sm-landscape-countdown {
 			opacity: 1;
 			position: static;
 		}
 		.sm-landscape-grid {
 			grid-template-rows: 1fr 1fr 1fr;
+		}
+		.sm-landscape-text {
+			visibility: visible;
+		}
+		.sm-landscape-text-container {
+			padding-bottom: 100;
 		}
 	}
 	@media (min-height: 640px) {

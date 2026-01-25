@@ -10,7 +10,7 @@ export default function RootLayout({
             <body
                 className={`antialiased`}
             >
-                <div className="h-screen w-full" style={{ backgroundImage: "url(stars_random_full.png)", backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
+                <div className="min-h-screen w-full overflow-x-hidden">
                     {children}
                 </div>
             </body>

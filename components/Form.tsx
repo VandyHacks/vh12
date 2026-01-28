@@ -67,7 +67,7 @@ export default function Form({ email }: { email: string }) {
 
     return (
         <div className={`h-full relative flex items-center flex-col pt-20 pb-20 overflow-y-scroll ${pressStart2P.className}`}>
-            <h1 className="text-[35px] sm:text-[50px] md:text-[64px] uppercase header-text-shadow text-center text-white">vandyhacks xii</h1>
+            <h1 className="text-[35px] sm:text-[50px] md:text-[64px] uppercase header-text-shadow mb-3 text-center text-white">vandyhacks xii</h1>
             <h2 className="text-[15px] sm:text-[20px] md:text-[30px] text-stone-200 mb-3 uppercase text-center">register</h2>
             <p className="mb-15 text-sm text-stone-200 text-center">Signed in as: {email}</p>
             <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-2xl mx-auto px-10 md:px-0">

@@ -14,7 +14,7 @@
 }
 
 @layer utilities {
-	@media (max-height: 800px) {
+	@media (max-height: 640px) and (orientation: landscape) {
 		.sm-landscape-countdown {
 			opacity: 0;
 			position: absolute;
@@ -32,7 +32,7 @@
 			padding-bottom: 40;
 		}
 	}
-	@media (min-height: 800px) {
+	@media (min-height: 640px) and (orientation: portrait) {
 		.sm-landscape-countdown {
 			opacity: 1;
 			position: static;

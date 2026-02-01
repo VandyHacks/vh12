@@ -3,7 +3,7 @@
 import { connectToDatabase } from "@/database/mongoose"
 import { Applicant, Analytics } from "@/database/schemas"
 import { auth } from "@/lib/auth/auth";
-import { headers, headers } from "next/headers";
+import { headers } from "next/headers";
 import { uploadResume } from "@/lib/aws"
 import { fileTypeFromBuffer } from 'file-type';
 import {
@@ -16,7 +16,6 @@ import {
   SHIRT_SIZES,
   YES_NO_OPTIONS,
 } from '@/lib/constants'
-import { type } from "os";
 
 export const submitForm = async (data, files) => {
 
@@ -109,8 +108,8 @@ export const analytics = async (event, id) => {
 
     if (!event || !id || typeof event !== "string" || typeof id !== "string") return;
     
-    const headers = await headers();
-    const userAgent = headers.get("user-agent") || "";
+    const reqHeaders = await headers();
+    const userAgent = reqHeaders.get("user-agent") || "";
     const botIndicators = ['bot', 'crawl', 'spider', 'fetch', 'python-requests', 'postman', 'scrapy', 'wget', 'curl'];
     const isBot = botIndicators.some((v) => userAgent.toLowerCase().includes(v));
 

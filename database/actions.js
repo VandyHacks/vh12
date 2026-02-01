@@ -1,9 +1,9 @@
 'use server'
 
 import { connectToDatabase } from "@/database/mongoose"
-import { Applicant } from "@/database/schemas"
+import { Applicant, Analytics } from "@/database/schemas"
 import { auth } from "@/lib/auth/auth";
-import { headers } from "next/headers";
+import { headers, headers } from "next/headers";
 import { uploadResume } from "@/lib/aws"
 import { fileTypeFromBuffer } from 'file-type';
 import {
@@ -16,7 +16,7 @@ import {
   SHIRT_SIZES,
   YES_NO_OPTIONS,
 } from '@/lib/constants'
-import { success } from "better-auth";
+import { type } from "os";
 
 export const submitForm = async (data, files) => {
 
@@ -101,6 +101,27 @@ export const submitForm = async (data, files) => {
     catch (e) {
         console.error(e);
         return { success: false };
+    }
+
+}
+
+export const analytics = async (event, id) => {
+
+    if (!event || !id || typeof event !== "string" || typeof id !== "string") return;
+    
+    const headers = await headers();
+    const userAgent = headers.get("user-agent") || "";
+    const botIndicators = ['bot', 'crawl', 'spider', 'fetch', 'python-requests', 'postman', 'scrapy', 'wget', 'curl'];
+    const isBot = botIndicators.some((v) => userAgent.toLowerCase().includes(v));
+
+    if (isBot) return;
+
+    try {
+        await connectToDatabase();
+        await Analytics.findOneAndUpdate({ "pageLoadID": id }, { "$push": { "events": event } }, { upsert: true });
+    }
+    catch (e) {
+        console.error(e);
     }
 
 }

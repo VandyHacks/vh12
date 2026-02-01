@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import {
   GENDER_OPTIONS,
   LEVEL_OF_STUDY_OPTIONS,
@@ -9,6 +9,7 @@ import {
   SHIRT_SIZES,
   YES_NO_OPTIONS,
 } from "@/lib/constants";
+
 
 const ApplicantSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -58,4 +59,17 @@ const ApplicantSchema = new mongoose.Schema({
     resume: { type: String }
 });
 
+const AnalyticsSchema = new mongoose.Schema({
+    pageLoadID: { type: String, maxLength: 100 },
+    events: { 
+        type: [String],
+        validate: {
+            validator: (v) => {
+                return v.length < 20
+            }
+        } 
+    }
+})
+
 export const Applicant = mongoose.models.Applicant || mongoose.model("Applicant", ApplicantSchema);
+export const Analytics = mongoose.models.Analytics || mongoose.model("Analytics", AnalyticsSchema);

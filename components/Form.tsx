@@ -4,7 +4,7 @@ import { pressStart2P } from "@/components/Fonts";
 import { useForm } from "react-hook-form";
 import InputField from "./InputField";
 import Selector from "./Selector";
-import { submitForm } from "@/database/actions"
+import { analytics, submitForm } from "@/database/actions"
 import { useEffect, useRef, useState } from "react";
 import FileInput from "./FileInput";
 import {
@@ -43,6 +43,8 @@ export default function Form({ email }: { email: string }) {
             }
         }
     }, [submitCount, errors]);
+    
+    const pageLoadID = useRef<string>(crypto.randomUUID());
 
     const onSubmit = async (data: any) => {
         try {
@@ -54,6 +56,7 @@ export default function Form({ email }: { email: string }) {
 
             const result = await submitForm(data, files);
             if (result?.success) {
+                analytics("form_submitted", pageLoadID.current);
                 window.location.reload();
             }
             else {
@@ -64,6 +67,11 @@ export default function Form({ email }: { email: string }) {
             setError("An error occurred. Please try again later.");
         }
     };
+
+
+    useEffect(() => {
+        analytics("apply_page_view", pageLoadID.current);
+    }, [])
 
     return (
         <div className={`h-full relative flex items-center flex-col pt-20 pb-20 overflow-y-scroll ${pressStart2P.className}`}>

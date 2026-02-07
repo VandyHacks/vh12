@@ -23,7 +23,7 @@ export default function SignIn() {
     }
 
     useEffect(() => {
-        analytics("page_view", pageLoadID.current);
+        analytics("signin_page_view", pageLoadID.current);
     }, [])
     
     return (

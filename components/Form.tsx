@@ -257,6 +257,42 @@ export default function Form({ email }: { email: string }) {
                     <div className="col-span-2">
                         <Selector name="volunteerContact" label="Would you like to be contacted about volunteering at the event?" options={YES_NO_OPTIONS} control={control} textWrap error={errors.volunteerContact} fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["volunteerContact"] = ref} />
                     </div>
+                    <div className="col-span-2">
+                        <Selector
+                            name="mlhContestAndConditions"
+                            label={
+                                <div className="inline">
+                                    I authorize Vandyhacks to share my application and registration information with Major League Hacking for event administration, ranking, and MLH administration in-line with the MLH Privacy Policy. I further agree to the terms of both the <a href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md" target="_blank" className="text-blue-300">MLH Contest Terms and Conditions</a> and the <a className="text-blue-300" target="_blank" href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md">MLH Privacy Policy</a>.
+                                </div>
+                            }
+                            options={["Agree"]}
+                            control={control}
+                            textWrap
+                            error={errors.mlhContestAndConditions}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["mlhContestAndConditions"] = ref}
+                            _rules={{
+                                required: "Please agree to the terms."
+                            }}
+                        />
+                    </div>
+                    <div className="col-span-2">
+                        <Selector
+                            name="mlhTerms"
+                            label={
+                                <div className="inline">
+                                    I have read and agree to the <a className="text-blue-300" target="_blank" href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md">MLH code of conduct</a>.
+                                </div>
+                            }
+                            options={["Agree"]}
+                            control={control}
+                            textWrap
+                            error={errors.mlhTerms}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["mlhTerms"] = ref}
+                            _rules={{
+                                required: "Please agree to the terms."
+                            }}
+                        />
+                    </div>
                 </div>
                 <div className="w-full flex justify-center mt-20">
                     <button

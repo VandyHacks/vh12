@@ -1,18 +1,19 @@
 import { motion } from "motion/react";
+import { ReactNode } from "react";
 import { Controller } from "react-hook-form";
 
-export default function Selector({ name, label, options, control, error, required = true, fieldRef, multiple = false, textWrap = false }: { name: string, label: string, options: string[], control: any, fieldRef: any, error?: any, multiple?: boolean, required?: boolean, textWrap?: boolean }) {
+export default function Selector({ name, label, options, control, error, required = true, fieldRef, multiple = false, textWrap = false, _rules }: { name: string, label: string | ReactNode, options: string[], control: any, fieldRef: any, error?: any, multiple?: boolean, required?: boolean, textWrap?: boolean, _rules?: any }) {
     
-    const rules = {
-        required: required ? (label.length > 30 || label.includes("?") ? "Please select an answer." : `${label} is required.`) : false, 
+    const rules = _rules || {
+        required: required ? typeof label !== "string" || (label.length > 30 || label.includes("?") ? "Please select an answer." : `${label} is required.`) : false, 
         validate: multiple ? (val: any) => val && val.length > 0 || `${label} is required.` : undefined
     }
     
     return (
         <div ref={fieldRef} className="flex flex-col items-center text-center text-sm md:text-lg">
-            <p className={textWrap ? "" : "text-nowrap"}>
+            <div className={textWrap ? "" : "text-nowrap"}>
                 {label}{required && <span className="text-red-500 relative -translate-y-[3px] inline-block flex-inline">{"*"}</span>}
-            </p>
+            </div>
             <Controller name={name} control={control} rules={rules} render={({ field }) => {
 
                 const value = field.value ?? (multiple ? [] : "");

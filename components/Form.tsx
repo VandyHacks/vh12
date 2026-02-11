@@ -19,6 +19,22 @@ import {
 } from "@/lib/constants";
 import StarBackground from "./StarBackground";
 
+function SectionHeader({ number, title }: { number: number; title: string }) {
+    return (
+        <div className="col-span-2 flex items-center gap-4 pt-6 pb-2">
+            <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-[#9fcaff] text-black text-[10px] md:text-xs font-bold shadow-[4px_4px_0px_0px_#000] shrink-0">
+                {number}
+            </div>
+            <h3 className="text-sm md:text-lg uppercase tracking-wider text-white">{title}</h3>
+            <div className="flex-1 h-[2px] bg-stone-700" />
+        </div>
+    );
+}
+
+function SectionDivider() {
+    return <div className="col-span-2 h-px bg-gradient-to-r from-transparent via-stone-600 to-transparent my-4" />;
+}
+
 export default function Form({ email }: { email: string }) {
 
     const {
@@ -39,7 +55,7 @@ export default function Form({ email }: { email: string }) {
         if (submitCount > 0 && firstErrorKey) {
             const ref = fieldRefs.current[firstErrorKey];
             if (ref) {
-                ref.scrollIntoView({ behavior: "instant", block: "center" });
+                ref.scrollIntoView({ behavior: "smooth", block: "center" });
             }
         }
     }, [submitCount, errors]);
@@ -73,20 +89,30 @@ export default function Form({ email }: { email: string }) {
         analytics("apply_page_view", pageLoadID.current);
     }, [])
 
+    const errorCount = Object.keys(errors).length;
+
     return (
         <div className={`h-full relative flex items-center flex-col pt-20 pb-20 overflow-y-scroll ${pressStart2P.className}`}>
             <h1 className="text-[35px] sm:text-[50px] md:text-[64px] uppercase header-text-shadow mb-3 text-center text-white">vandyhacks xii</h1>
             <h2 className="text-[15px] sm:text-[20px] md:text-[30px] text-stone-200 mb-3 uppercase text-center">register</h2>
-            <p className="mb-15 text-sm text-stone-200 text-center">Signed in as: {email}</p>
+            <p className="mb-6 text-sm text-stone-200 text-center">Signed in as: {email}</p>
             <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-2xl mx-auto px-10 md:px-0">
-                <div className="md:grid md:auto-cols-fr md:gap-2 text-stone-200 space-y-5">
+                <div className="md:grid md:grid-cols-2 md:gap-x-4 md:gap-y-2 text-stone-200 space-y-5 md:space-y-0">
+                    <SectionHeader number={1} title="About You" />
+
                     <InputField name="name" type="text" label="Full Name" register={register} error={errors.name} validation={{ 
                         required: "Name is required.", 
                         minLength: { value: 2, message: "Must be at least 2 characters." },
                         maxLength: { value: 30, message: "Must be less than 30 characters."}
                     }}/>
                     <InputField name="preferredName" type="text" label="Preferred Name" register={register} error={errors.preferredName}/>
-                    <div className="col-span-2">
+                    <InputField name="age" type="text" label="Age" register={register} error={errors.age} validation={{
+                        required: "Age is required.",
+                        min: { value: 1, message: "Age must be at least 1." },
+                        validate: (value: any) => !isNaN(Number(value)) || "Age must be a number.",
+                        maxLength: { value: 2, message: "Must be less than 2 characters." }
+                    }} />
+                    <div className="col-span-1">
                         <Selector 
                             name="gender" 
                             label="Gender" 
@@ -96,21 +122,30 @@ export default function Form({ email }: { email: string }) {
                             fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["gender"] = ref} 
                         />
                     </div>
-                    <InputField name="age" type="text" label="Age" register={register} error={errors.age} validation={{
-                        required: "Age is required.",
-                        min: { value: 1, message: "Age must be at least 1." },
-                        validate: (value: any) => !isNaN(Number(value)) || "Age must be a number.",
-                        maxLength: { value: 2, message: "Must be less than 2 characters." }
-                    }} />
-                    <InputField name="major" type="text" label="Major" register={register} error={errors.major} validation={{
-                        required: "Major is required.",
-                        minLength: { value: 2, message: "Must be at least 2 characters." },
-                        maxLength: { value: 30, message: "Must be less than 30 characters." }
-                    }} />
+                    <div className="col-span-2">
+                        <Selector
+                            name="race"
+                            label="Race"
+                            control={control}
+                            options={RACE_OPTIONS}
+                            error={errors.race}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["race"] = ref} 
+                        />
+                    </div>
                     <div className="col-span-2">
                         <InputField name="phoneNumber" type="text" label="Phone Number" register={register} error={errors.phoneNumber} validation={{
                             required: "Phone number is required.",
                             maxLength: { value: 15, message: "Must be less than 15 characters." }
+                        }} />
+                    </div>
+
+                    <SectionHeader number={2} title="Education" />
+
+                    <div className="col-span-2">
+                        <InputField name="major" type="text" label="Major" register={register} error={errors.major} validation={{
+                            required: "Major is required.",
+                            minLength: { value: 2, message: "Must be at least 2 characters." },
+                            maxLength: { value: 30, message: "Must be less than 30 characters." }
                         }} />
                     </div>
                     <div className="col-span-2">
@@ -149,6 +184,8 @@ export default function Form({ email }: { email: string }) {
                             }}
                         />
                     </div>
+                    <SectionHeader number={3} title="Address" />
+
                     <div className="col-span-2">
                         <InputField name="addressLine1" type="text" label="Address Line 1" register={register} error={errors.addressLine1} validation={{
                             required: "Address Line 1 is required.",
@@ -176,32 +213,8 @@ export default function Form({ email }: { email: string }) {
                         required: "Country is required.",
                         maxLength: { value: 50, message: "Must be less than 50 characters." }
                     }} />
-                    <div className="col-span-2">
-                        <Selector
-                            name="race"
-                            label="Race"
-                            control={control}
-                            options={RACE_OPTIONS}
-                            error={errors.race}
-                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["race"] = ref} 
-                        />
-                    </div>
-                    <div className="col-span-2">
-                        <Selector
-                            name="dietaryRestrictions"
-                            label="Dietary Restrictions"
-                            control={control}
-                            multiple
-                            options={DIETARY_OPTIONS}
-                            error={errors.dietaryRestrictions}
-                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["dietaryRestrictions"] = ref} 
-                        />
-                    </div>
-                    <div className="col-span-2">
-                        <InputField name="accommodationNeeds" type="text" label="Accommodation needs" register={register} error={errors.accommodationNeeds} validation={{
-                            maxLength: { value: 150, message: "Must be less than 150 characters." }
-                        }} />
-                    </div>
+                    <SectionHeader number={4} title="Hacker Profile" />
+
                     <div className="col-span-2">
                         <Selector name="firstTimeHacker" label="First-time hacker?" options={["Yes", "No"]} control={control} error={errors.firstTimeHacker} fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["firstTimeHacker"] = ref} />
                     </div>
@@ -237,13 +250,36 @@ export default function Form({ email }: { email: string }) {
                             fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["gainFromVandyHacks"] = ref} 
                         />
                     </div>
+                    <SectionHeader number={5} title="Event Day" />
+
                     <div className="col-span-2">
                         <Selector name="shirtSize" label="Shirt Size" options={SHIRT_SIZES} control={control} error={errors.shirtSize} fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["shirtSize"] = ref} />
+                    </div>
+                    <div className="col-span-2">
+                        <Selector
+                            name="dietaryRestrictions"
+                            label="Dietary Restrictions"
+                            control={control}
+                            multiple
+                            options={DIETARY_OPTIONS}
+                            error={errors.dietaryRestrictions}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["dietaryRestrictions"] = ref} 
+                        />
+                    </div>
+                    <div className="col-span-2">
+                        <InputField name="accommodationNeeds" type="text" label="Accommodation Needs" register={register} error={errors.accommodationNeeds} validation={{
+                            maxLength: { value: 150, message: "Must be less than 150 characters." }
+                        }} />
                     </div>
                     <div className="col-span-2">
                         <Selector name="overnight" label="Are you staying overnight in the venue?" options={YES_NO_OPTIONS} control={control} textWrap error={errors.overnight} fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["overnight"] = ref} />
                     </div>
                     <div className="col-span-2">
+                        <Selector name="volunteerContact" label="Would you like to be contacted about volunteering at the event?" options={YES_NO_OPTIONS} control={control} textWrap error={errors.volunteerContact} fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["volunteerContact"] = ref} />
+                    </div>
+                    <SectionHeader number={6} title="Legal" />
+
+                    <div className="col-span-2 pb-6">
                         <Selector
                             name="usStatus"
                             label="Are you a U.S. Citizen, Permanent Resident, or granted the status of Immigrant, Refugee, Asylee or Deferred Action for Childhood Arrival (DACA), by the Bureau of Citizenship and Immigration Services?"
@@ -254,15 +290,13 @@ export default function Form({ email }: { email: string }) {
                             fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["usStatus"] = ref} 
                         />
                     </div>
-                    <div className="col-span-2">
-                        <Selector name="volunteerContact" label="Would you like to be contacted about volunteering at the event?" options={YES_NO_OPTIONS} control={control} textWrap error={errors.volunteerContact} fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["volunteerContact"] = ref} />
-                    </div>
-                    <div className="col-span-2">
+
+                    <div className="col-span-2 space-y-8">
                         <Selector
                             name="mlhContestAndConditions"
                             label={
                                 <div className="inline">
-                                    I authorize Vandyhacks to share my application and registration information with Major League Hacking for event administration, ranking, and MLH administration in-line with the MLH Privacy Policy. I further agree to the terms of both the <a href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md" target="_blank" className="text-blue-300">MLH Contest Terms and Conditions</a> and the <a className="text-blue-300" target="_blank" href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md">MLH Privacy Policy</a>.
+                                    I authorize Vandyhacks to share my application and registration information with Major League Hacking for event administration, ranking, and MLH administration in-line with the MLH Privacy Policy. I further agree to the terms of both the <a href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md" target="_blank" className="text-blue-300 hover:text-blue-200 underline underline-offset-2">MLH Contest Terms and Conditions</a> and the <a className="text-blue-300 hover:text-blue-200 underline underline-offset-2" target="_blank" href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md">MLH Privacy Policy</a>.
                                 </div>
                             }
                             options={["Agree"]}
@@ -274,13 +308,11 @@ export default function Form({ email }: { email: string }) {
                                 required: "Please agree to the terms."
                             }}
                         />
-                    </div>
-                    <div className="col-span-2">
                         <Selector
                             name="mlhTerms"
                             label={
                                 <div className="inline">
-                                    I have read and agree to the <a className="text-blue-300" target="_blank" href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md">MLH code of conduct</a>.
+                                    I have read and agree to the <a className="text-blue-300 hover:text-blue-200 underline underline-offset-2" target="_blank" href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md">MLH code of conduct</a>.
                                 </div>
                             }
                             options={["Agree"]}
@@ -294,20 +326,25 @@ export default function Form({ email }: { email: string }) {
                         />
                     </div>
                 </div>
-                <div className="w-full flex justify-center mt-20">
+                <div className="w-full flex flex-col items-center mt-16 mb-4 gap-4">
+                    {errorCount > 0 && submitCount > 0 && (
+                        <div className="text-[10px] md:text-xs text-red-400 bg-red-950/30 border border-red-800/50 px-4 py-2 text-center">
+                            Please fix {errorCount} {errorCount === 1 ? "error" : "errors"} above before submitting.
+                        </div>
+                    )}
                     <button
                         type="submit"
-                        className="uppercase px-8 py-3 bg-stone-200 text-black active:translate-y-0.5 shadow-[6px_6px_0px_0px_#000]"
+                        className="uppercase px-10 py-4 bg-stone-200 text-black text-sm md:text-base active:translate-y-0.5 shadow-[6px_6px_0px_0px_#000] hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? "Submitting..." : "Submit"}
+                        {isSubmitting ? "Submitting..." : "Submit Application"}
                     </button>
+                    {error && (
+                        <div className="text-[11px] md:text-sm text-red-500 bg-red-950/30 border border-red-800/50 px-4 py-2 text-center max-w-md">
+                            {error}
+                        </div>
+                    )}
                 </div>
-                <div className="w-full text-center text-red-500 text-sm md:text-md mt-5">
-                    {
-                        error && <p>{error}</p>
-                    }
-                </div>  
             </form>
         </div>
     );

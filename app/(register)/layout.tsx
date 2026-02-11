@@ -5,6 +5,8 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+
+
     return (
         <div style={{ lineHeight: "normal", backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }} className="h-screen w-full overflow-x-hidden">
             {children}

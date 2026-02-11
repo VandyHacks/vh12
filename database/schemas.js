@@ -9,6 +9,7 @@ import {
   SHIRT_SIZES,
   YES_NO_OPTIONS,
 } from "@/lib/constants";
+import { boolean } from "better-auth";
 
 
 const ApplicantSchema = new mongoose.Schema({
@@ -56,7 +57,8 @@ const ApplicantSchema = new mongoose.Schema({
     overnight: { type: String, enum: YES_NO_OPTIONS, required: true },
     usStatus: { type: String, enum: YES_NO_OPTIONS, required: true },
     volunteerContact: { type: String, enum: YES_NO_OPTIONS, required: true },
-    resume: { type: String }
+    resume: { type: String },
+    authorizeEmails: { type: Boolean }
 });
 
 const AnalyticsSchema = new mongoose.Schema({
@@ -70,6 +72,7 @@ const AnalyticsSchema = new mongoose.Schema({
         } 
     }
 })
+
 
 export const Applicant = mongoose.models.Applicant || mongoose.model("Applicant", ApplicantSchema);
 export const Analytics = mongoose.models.Analytics || mongoose.model("Analytics", AnalyticsSchema);

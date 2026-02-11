@@ -8,8 +8,10 @@ import Button from "@/components/Button"
 import { useEffect, useState } from "react";
 import Background from "@/components/Background";
 import bg from "@/public/stars_random_full.png"
-import bg1 from "@/public/about_background.png"
 import Lenis from 'lenis'
+import { FAQ_ELEMENTS } from "@/lib/constants";
+import FAQElement from "@/components/FAQElement";
+import { Globe, Instagram } from "lucide-react";
 
 export default function Home() {
 
@@ -30,14 +32,10 @@ export default function Home() {
 
 	useEffect(() => {
 		const onResize = () => setMobile(isMobile());
+		const lenis = new Lenis({ autoRaf: true });
 		window.addEventListener("resize", onResize);
 		return () => window.removeEventListener("resize", onResize);
 	}, []);
-
-	// const lenis = new Lenis({
-	// 	autoRaf: true,
-	// });
-
 
 	return (
 		<div className="">
@@ -72,18 +70,40 @@ export default function Home() {
 						<Button text="Apply Now" animate onClick={() => router.push("/sign-in")} />
 					</motion.div>
 				</div>
-				{/* <div className="absolute bottom-0 left-0 right-0 h-30 bg-linear-to-b from-[#00000000 to-[#000000ff]">
-
-				</div> */}
 			</div>
-			{/* <div className="h-screen relative" style={{ backgroundImage: `url(${bg1.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
-				<div className="absolute top-0 left-0 right-0 h-30 bg-linear-to-b to-[#00000000] from-[#000000ff]"/>
-				<div className={`${pressStart2P.className} absolute top-1/2 -translate-y-1/2 sm:-translate-y-1/8 width-full mx-3 sm:mx-20`}>
+			<div className="h-screen relative">
+				<div className="absolute inset-0 bg-cover bg-no-repeat rotate-180" style={{ backgroundImage: `url(${bg.src})` }}/>
+				<div className={`${pressStart2P.className} absolute top-1/2 -translate-y-1/2 md:-translate-y-1/8 w-full px-5 sm:px-20`}>
 					<h1 className="sm:text-[60px] text-[30px] text-center">About</h1>
-					<p className="text-center text-[clamp(10px,1vw,13px)] mt-10" style={{ lineHeight: mobile ? "20px" : "42px" }}>Code, collaborate, learn, and network at Vanderbilt's official collegiate hackathon, VandyHacks! As one of the largest hackathons in the south, this in-person event includes both student and company-led workshops, a career fair, games, events, full two-day catering, internship panels, speaker events, and the premier 24-hour hackathon with thousand of dollars worth of prizes. VandyHacks has had thousands of projects submitted by students over the course of 12 incredible years, and we hope you can join us in this September, 28th-29th. We hope to see you on the racetrack at VandyHacks XI! Go Hackers!</p>
+					<p className="text-center text-[clamp(10px,1vw,13px)] mt-10" style={{ lineHeight: mobile ? "20px" : "42px" }}>
+						Code, collaborate, learn, and network at Vanderbilt's official collegiate hackathon, VandyHacks! As one of the largest hackathons in the south, this in-person event includes both student and company-led workshops, a career fair, games, events, full two-day catering, internship panels, speaker events, and the premier 24-hour hackathon with thousand of dollars worth of prizes. VandyHacks has had thousands of projects submitted by students over the course of 12 incredible years, and we hope you can join us in this March, 21th-22th. We hope to see you at VandyHacks XII! Go Hackers!
+					</p>
 				</div>
-
-			</div> */}
+			</div>
+			<div className="h-screen relative" style={{ backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
+				<div className="grid grid-rows-[25%_75%] h-full max-w-6xl mx-5 xl:mx-auto pt-10 pb-20">
+					<div className="flex flex-col items-center justify-center">
+						<p className={`${vt323.className} md:self-start sm:text-[40px] text-[30px] text-nowrap`}>$ cat FAQ.yml</p>
+						<p className={`${pressStart2P.className} sm:text-[60px] text-[50px]`}>FAQ</p>
+					</div>
+					<div className="overflow-y-scroll scrollbar space-y-2 pr-2 max-h-[80vh] scroll-smooth" data-lenis-prevent>
+						{
+							FAQ_ELEMENTS.map((val, key) => (
+								<FAQElement question={val.question} answer={val.answer} key={key}/>
+							))
+						}
+					</div>
+				</div>
+			</div>
+			<div className="h-20 relative overflow-hidden">
+				<div className="absolute top-0 w-full h-screen bg-cover bg-no-repeat rotate-180 -z-1" style={{ backgroundImage: `url(${bg.src})` }} />
+				<div className="max-w-6xl px-5 xl:mx-auto flex items-center justify-start h-full gap-5 flex-wrap leading-[10px]">
+					<Instagram className="cursor-pointer hover:text-blue-300 transition-colors ease-in-out duration-500" onClick={() => window.open("https://www.instagram.com/vandyhacks", "_blank")?.focus()}/>
+					<Globe className="cursor-pointer hover:text-blue-300 transition-colors ease-in-out duration-500" onClick={() => window.open("https://linktr.ee/vandyhacks", "_blank")?.focus()} />
+					<div className="flex-1"/>
+					<a target="_blank" href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md" className={`${vt323.className} text-xl tracking-wider text-blue-300`}>MLH Code of Conduct</a>
+				</div>
+			</div>
 		</div>
 	);
 }

@@ -91,7 +91,7 @@ export const submitForm = async (data, files) => {
             if (resumeKey === null) return { success: false }
         }
 
-        const applicant = new Applicant({ ...data, email: session.user.email, resume: resumeKey });
+        const applicant = new Applicant({ ...data, authorizeEmails: data.authorizeEmails === "Agree", email: session.user.email, resume: resumeKey });
 
         await applicant.save();
         return { success: true };

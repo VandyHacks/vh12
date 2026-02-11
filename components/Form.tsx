@@ -106,13 +106,15 @@ export default function Form({ email }: { email: string }) {
                         maxLength: { value: 30, message: "Must be less than 30 characters."}
                     }}/>
                     <InputField name="preferredName" type="text" label="Preferred Name" register={register} error={errors.preferredName}/>
-                    <InputField name="age" type="text" label="Age" register={register} error={errors.age} validation={{
-                        required: "Age is required.",
-                        min: { value: 1, message: "Age must be at least 1." },
-                        validate: (value: any) => !isNaN(Number(value)) || "Age must be a number.",
-                        maxLength: { value: 2, message: "Must be less than 2 characters." }
-                    }} />
-                    <div className="col-span-1">
+                    <div className="col-span-2">
+                        <InputField name="age" type="text" label="Age" register={register} error={errors.age} validation={{
+                            required: "Age is required.",
+                            min: { value: 1, message: "Age must be at least 1." },
+                            validate: (value: any) => !isNaN(Number(value)) || "Age must be a number.",
+                            maxLength: { value: 2, message: "Must be less than 2 characters." }
+                        }} />
+                    </div>
+                    <div className="col-span-2">
                         <Selector 
                             name="gender" 
                             label="Gender" 
@@ -323,6 +325,22 @@ export default function Form({ email }: { email: string }) {
                             _rules={{
                                 required: "Please agree to the terms."
                             }}
+                        />
+                        <Selector
+                            name="authorizeEmails"
+                            label={
+                                <div className="inline">
+                                    I authorize MLH to send me occasional emails about relevant events, careers opportunities, and community announcements.
+                                </div>
+                            }
+                            options={["Agree"]}
+                            control={control}
+                            textWrap
+                            error={errors.authorizeEmails}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["authorizeEmails"] = ref}
+                            _rules={{
+                            }}
+                            required={false}
                         />
                     </div>
                 </div>

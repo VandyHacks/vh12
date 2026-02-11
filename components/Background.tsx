@@ -154,7 +154,15 @@ export default function Background() {
 				})
 			}
 			const step = (timestamp: number) => {
-				spritesRef.current = spritesRef.current.filter((sprite) => sprite.x < cvs.clientWidth + 150);
+				spritesRef.current = spritesRef.current.filter((sprite) => {
+					const halfWidth = sprite.img.width * sprite.scale / 2;
+					const halfHeight = sprite.img.height * sprite.scale / 2;
+					return (
+						sprite.x - halfWidth < cvs.clientWidth &&
+						sprite.y + halfHeight > 0 &&
+						sprite.y - halfHeight < cvs.clientHeight
+					);
+				});
 				if (!running) return;
 				if (lastRef.current === 0) {
 					lastRef.current = timestamp;      

@@ -29,7 +29,7 @@ export default function FAQElement({ question, answer }: { question: string | Re
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 0.7 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ type: "spring", bounce: 0.25 }}
+                        transition={{ ease: "easeOut", duration: 0.35 }}
                         className="overflow-hidden"
                     >
                         <div className={`${vt323.className} text-[20px] mt-4`}>{answer}</div>

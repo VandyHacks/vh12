@@ -11,9 +11,9 @@ export default function RootLayout({
         maxWidth: "100px",
         minWidth: "60px",
         position: "fixed",
-        right: "50px",
+        right: "15px",
         top: "0",
-        width: "10%",
+        width: "5%",
         zIndex: 10000
     };
 

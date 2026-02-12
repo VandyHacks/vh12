@@ -24,7 +24,7 @@ export default function Home() {
 	}, []);
 	const isMobile = () => {
 		if (typeof window !== "undefined") {
-			return window.matchMedia("(max-width: 767px)").matches;
+			return window.matchMedia("(max-width: 900px) or (max-height: 500px)").matches;
 		}
 		return false;
 	}
@@ -73,7 +73,7 @@ export default function Home() {
 			</div>
 			<div className="h-screen relative">
 				<div className="absolute inset-0 bg-cover bg-no-repeat rotate-180" style={{ backgroundImage: `url(${bg.src})` }}/>
-				<div className={`${pressStart2P.className} absolute top-1/2 -translate-y-1/2 md:-translate-y-1/8 w-full px-5 sm:px-20`}>
+				<div className={`${pressStart2P.className} absolute top-1/2 -translate-y-1/2 w-full px-5 sm:px-20`}>
 					<h1 className="sm:text-[60px] text-[30px] text-center">About</h1>
 					<p className="text-center text-[clamp(10px,1vw,13px)] mt-10" style={{ lineHeight: mobile ? "20px" : "42px" }}>
 						Code, collaborate, learn, and network at Vanderbilt's official collegiate hackathon, VandyHacks! As one of the largest hackathons in the south, this in-person event includes both student and company-led workshops, a career fair, games, events, full two-day catering, internship panels, speaker events, and the premier 24-hour hackathon with thousand of dollars worth of prizes. VandyHacks has had thousands of projects submitted by students over the course of 12 incredible years, and we hope you can join us in this March, 21th-22th. We hope to see you at VandyHacks XII! Go Hackers!
@@ -81,7 +81,7 @@ export default function Home() {
 				</div>
 			</div>
 			<div className="h-screen relative" style={{ backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
-				<div className="grid grid-rows-[25%_75%] h-full max-w-6xl mx-5 xl:mx-auto pt-10 pb-20">
+				<div className="grid grid-rows-[auto_1fr] gap-2 h-full max-w-6xl mx-5 xl:mx-auto pt-10 pb-20">
 					<div className="flex flex-col items-center justify-center">
 						<p className={`${vt323.className} md:self-start sm:text-[40px] text-[25px] text-nowrap`}>$ cat FAQ.yml</p>
 						<p className={`${pressStart2P.className} sm:text-[60px] text-[30px]`}>FAQ</p>

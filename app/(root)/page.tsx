@@ -97,7 +97,7 @@ export default function Home() {
 			</div>
 			<div className="h-20 relative overflow-hidden">
 				<div className="absolute top-0 w-full h-screen bg-cover bg-no-repeat rotate-180 -z-1" style={{ backgroundImage: `url(${bg.src})` }} />
-				<div className="max-w-6xl px-5 xl:mx-auto flex items-center justify-start h-full gap-5 flex-wrap leading-[10px]">
+				<div className="max-w-6xl xl:mx-auto flex items-center justify-start h-full gap-5 flex-wrap leading-[10px]">
 					<Instagram className="cursor-pointer hover:text-blue-300 transition-colors ease-in-out duration-500" onClick={() => window.open("https://www.instagram.com/vandyhacks", "_blank")?.focus()}/>
 					<Globe className="cursor-pointer hover:text-blue-300 transition-colors ease-in-out duration-500" onClick={() => window.open("https://linktr.ee/vandyhacks", "_blank")?.focus()} />
 					<div className="flex-1"/>

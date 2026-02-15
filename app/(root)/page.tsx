@@ -73,7 +73,7 @@ export default function Home() {
 			</div>
 			<div className="h-screen relative">
 				<div className="absolute inset-0 bg-cover bg-no-repeat rotate-180" style={{ backgroundImage: `url(${bg.src})` }}/>
-				<div className={`${pressStart2P.className} absolute top-1/2 -translate-y-1/2 w-full px-5 sm:px-20`}>
+				<div className={`${pressStart2P.className} absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-full px-5 max-w-6xl`}>
 					<h1 className="sm:text-[60px] text-[30px] text-center">About</h1>
 					<p className="text-center text-[clamp(10px,1vw,13px)] mt-10" style={{ lineHeight: mobile ? "20px" : "42px" }}>
 						Code, collaborate, learn, and network at Vanderbilt's official collegiate hackathon, VandyHacks! As one of the largest hackathons in the south, this in-person event includes both student and company-led workshops, a career fair, games, events, full two-day catering, internship panels, speaker events, and the premier 24-hour hackathon with thousand of dollars worth of prizes. VandyHacks has had thousands of projects submitted by students over the course of 12 incredible years, and we hope you can join us in this March, 21th-22th. We hope to see you at VandyHacks XII! Go Hackers!

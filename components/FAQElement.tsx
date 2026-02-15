@@ -11,13 +11,12 @@ export default function FAQElement({ question, answer }: { question: string | Re
 
     return (
         <div className="w-full px-[41px] py-6 bg-[#12192F80] border border-[#FFFFFF1A] rounded-[10px] overflow-hidden">
-            <div className="flex items-center justify-between gap-4">
+            <div onClick={() => setOpened(v => !v)} className="flex cursor-pointer items-center justify-between gap-4">
                 <div className={`${vt323.className} text-[20px] sm:text-[30px]`}>{question}</div>
                 <motion.div
                     animate={{ rotate: opened ? 180 : 0 }}
                     transition={{ type: "spring", bounce: 0.25 }}
-                    className="cursor-pointer shrink-0"
-                    onClick={() => setOpened(v => !v)}
+                    className="shrink-0"
                 >
                     <ChevronDown size={24} />
                 </motion.div>

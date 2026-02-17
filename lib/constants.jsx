@@ -63,6 +63,14 @@ export const FAQ_ELEMENTS = [
     answer: <p>Please see <a target="_blank" href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md" className="text-blue-300">the MLH code of conduct</a>.</p>
   },
   {
+    question: "Where is the event?",
+    answer: "VandyHacks XII will be held in Featheringill Hall at Vanderbilt University. Hackers commuting to Vanderbilt via car will have access to parking. There are also various transportation options nearby."
+  },
+  {
+    question: "If I come in through driving, where can I park?",
+    answer: "We have parking from 25th Avenue Garage located on 2401 Highland Ave, Nashville, TN 37212."
+  },
+  {
     question: "What is the registration deadline?",
     answer: "The deadline to apply is currently March 20th at 11:59 pm. Please apply as early as possible, as it helps us with planning a lot better!"
   },
@@ -87,10 +95,6 @@ export const FAQ_ELEMENTS = [
     answer: "Any team of up to 4 individuals who submit a project are eligible to win a prize. Any attendee is eligible to win, but in order to receive a prize, team members must hold unrestricted work authorization in the United States."
   },
   {
-    question: "If I come in through driving, where can I park?",
-    answer: "We have parking from 25th Avenue Garage located on 2401 Highland Ave, Nashville, TN 37212."
-  },
-  {
     question: "What if I have never been to a hackathon?",
     answer: "Don't fret! You will receive a full guide on how to hack a few days before the event, and there will also be VandyHacks staff, mentors, and other hackers to answer any questions you might have."
   },
@@ -105,10 +109,6 @@ export const FAQ_ELEMENTS = [
   {
     question: "Can I participate virtually?",
     answer: "Unfortunately not, VandyHacks XII is fully in-person."
-  },
-  {
-    question: "Where is the event?",
-    answer: "VandyHacks XII will be held in Featheringill Hall at Vanderbilt University. Hackers commuting to Vanderbilt via car will have access to parking. There are also various transportation options nearby."
   },
   {
     question: "What should I bring?",

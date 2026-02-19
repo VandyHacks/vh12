@@ -67,7 +67,7 @@ export const FAQ_ELEMENTS = [
     answer: "VandyHacks XII will be held in Featheringill Hall at Vanderbilt University. Hackers commuting to Vanderbilt via car will have access to parking. There are also various transportation options nearby."
   },
   {
-    question: "When does the even start and end?",
+    question: "When does the event start and end?",
     answer: "The hackathon starts at 10:30am CST on March 21st and ends at 10:30pm CST on March 22nd."
   },
   {

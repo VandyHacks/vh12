@@ -67,6 +67,10 @@ export const FAQ_ELEMENTS = [
     answer: "VandyHacks XII will be held in Featheringill Hall at Vanderbilt University. Hackers commuting to Vanderbilt via car will have access to parking. There are also various transportation options nearby."
   },
   {
+    question: "When does the even start and end?",
+    answer: "The hackathon starts at 10:30am CST on March 21st and ends at 10:30pm CST on March 22nd."
+  },
+  {
     question: "If I come in through driving, where can I park?",
     answer: "We have parking from 25th Avenue Garage located on 2401 Highland Ave, Nashville, TN 37212."
   },

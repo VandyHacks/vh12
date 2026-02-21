@@ -27,7 +27,7 @@ export default function Selector({ name, label, options, control, error, require
                             field.onChange([...arr, item]);
                         }
                     } else {
-                        field.onChange(item);
+                        field.onChange(value === item && options.length === 1 ? "" : item);
                     }
                 };
 

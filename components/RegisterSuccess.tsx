@@ -10,7 +10,7 @@ export default function RegisterSuccess({ email }: { email: string }) {
                 </div>
                 <div className="w-full h-px bg-gradient-to-r from-transparent via-stone-600 to-transparent" />
                 <p className="text-[11px] sm:text-[13px] text-stone-300 leading-5 mb-2">
-                    Thank you for applying! We'll review your application and reach out soon.
+                    Thank you for applying! Please monitor the email you applied with for updates.
                 </p>
                 <div className="mx-3 w-full min-w-0">
                     <p className="text-[10px] text-stone-500 leading-5 truncate">

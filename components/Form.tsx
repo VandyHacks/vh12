@@ -92,7 +92,7 @@ export default function Form({ email }: { email: string }) {
     const errorCount = Object.keys(errors).length;
 
     return (
-        <div className={`h-full relative flex items-center flex-col pt-20 pb-20 overflow-y-scroll ${pressStart2P.className}`}>
+        <div className={`h-full relative flex items-center flex-col pt-30 md:pt-20 pb-20 overflow-y-scroll ${pressStart2P.className}`}>
             <h1 className="text-[35px] sm:text-[50px] md:text-[64px] uppercase header-text-shadow mb-3 text-center text-white">vandyhacks xii</h1>
             <h2 className="text-[15px] sm:text-[20px] md:text-[30px] text-stone-200 mb-3 uppercase text-center">register</h2>
             <p className="mb-6 text-sm text-stone-200 text-center">Signed in as: {email}</p>

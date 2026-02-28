@@ -68,7 +68,7 @@ export const FAQ_ELEMENTS = [
   },
   {
     question: "When does the event start and end?",
-    answer: "The hackathon starts at 10:30am CST on March 21st and ends at 10:30pm CST on March 22nd."
+    answer: "Registration is from 7:00-9:00am CST on March 21st. The hackathon starts at 11:00am CST on March 21st and ends at 10:30pm CST on March 22nd."
   },
   {
     question: "If I come in through driving, where can I park?",

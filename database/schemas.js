@@ -75,7 +75,7 @@ const AnalyticsSchema = new mongoose.Schema({
 const DiscordSchema = new mongoose.Schema({
     email: { type: String, maxLength: 100, required: true, unique: true },
     userID: { type: String, maxLength: 100, required: true, unique: true },
-    name: { type: String, maxLength: 100, required: true, unique: true }
+    name: { type: String, maxLength: 100, required: true }
 });
 
 

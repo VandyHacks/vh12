@@ -13,7 +13,7 @@ export default async function Register() {
     const session = await auth.api.getSession({
         headers: await headers()
     });
-    if (!session) redirect("/sign-in");
+    if (!session) redirect(`/sign-in?callback=${encodeURIComponent("/register")}`);
 
     await connectToDatabase();
     const alreadyApplied = Boolean(await Applicant.exists({ email: session.user.email }));

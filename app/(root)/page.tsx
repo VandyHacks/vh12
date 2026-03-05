@@ -67,7 +67,7 @@ export default function Home() {
 						whileTap={{ scale: 0.95 }}
 						transition={{ type: "spring" }}
 					>
-						<Button text="Apply Now" animate onClick={() => router.push("/sign-in")} />
+						<Button text="Apply Now" animate onClick={() => router.push(`/sign-in?callback=${encodeURIComponent("/register")}`)} />
 					</motion.div>
 				</div>
 			</div>

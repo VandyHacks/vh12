@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import {
   GENDER_OPTIONS,
   LEVEL_OF_STUDY_OPTIONS,
@@ -9,7 +9,6 @@ import {
   SHIRT_SIZES,
   YES_NO_OPTIONS,
 } from "@/lib/constants";
-import { boolean } from "better-auth";
 
 
 const ApplicantSchema = new mongoose.Schema({
@@ -71,8 +70,15 @@ const AnalyticsSchema = new mongoose.Schema({
             }
         } 
     }
-})
+});
+
+const DiscordSchema = new mongoose.Schema({
+    email: { type: String, maxLength: 100, required: true, unique: true },
+    userID: { type: String, maxLength: 100, required: true, unique: true },
+    name: { type: String, maxLength: 100, required: true, unique: true }
+});
 
 
 export const Applicant = mongoose.models.Applicant || mongoose.model("Applicant", ApplicantSchema);
 export const Analytics = mongoose.models.Analytics || mongoose.model("Analytics", AnalyticsSchema);
+export const Discord = mongoose.models.Discord || mongoose.model("Discord", DiscordSchema);

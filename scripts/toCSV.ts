@@ -8,7 +8,7 @@ import { getPrivateResumeLink } from '../lib/aws';
 async function main() {
     await connectToDatabase();
     const documents = await Applicant.find({ });
-    const stream = createWriteStream("applicants.csv", { flags: "a" });
+    const stream = createWriteStream("applicants.csv", { flags: "w" });
     const keys = Object.keys(documents[0].toObject());
     for (const key of keys) {
         if (key === "__v") continue;

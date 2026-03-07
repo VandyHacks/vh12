@@ -51,7 +51,7 @@ export default async function Discord() {
             redirect("/discord/success")
         }
         else {
-            redirect(process.env.NODE_ENV === "development" ? "https://discord.com/oauth2/authorize?client_id=1476349626314526861&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fdiscord%2Fcallback&scope=identify" : "https://discord.com/oauth2/authorize?client_id=1476349626314526861&response_type=code&redirect_uri=https%3A%2F%2Fvandyhacks.org%2Fapi%2Fdiscord%2Fcallback&scope=identify");
+            redirect(process.env.NODE_ENV === "development" ? `https://discord.com/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fdiscord%2Fcallback&scope=identify` : `https://discord.com/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&response_type=code&redirect_uri=https%3A%2F%2Fvandyhacks.org%2Fapi%2Fdiscord%2Fcallback&scope=identify`);
         }
     }
 

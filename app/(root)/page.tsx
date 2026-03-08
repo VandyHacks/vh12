@@ -34,6 +34,14 @@ export default function Home() {
 		const onResize = () => setMobile(isMobile());
 		const lenis = new Lenis({ autoRaf: true });
 		window.addEventListener("resize", onResize);
+
+		if (window.location.hash) {
+			const el = document.querySelector(window.location.hash);
+			if (el) {
+				setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
+			}
+		}
+
 		return () => window.removeEventListener("resize", onResize);
 	}, []);
 
@@ -80,7 +88,7 @@ export default function Home() {
 					</p>
 				</div>
 			</div>
-			<div className="h-screen relative" style={{ backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
+			<div id="faq" className="h-screen relative" style={{ backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
 				<div className="grid grid-rows-[auto_1fr] gap-2 h-full max-w-6xl mx-5 xl:mx-auto pt-10 pb-20">
 					<div className="flex flex-col items-center justify-center">
 						<p className={`${vt323.className} md:self-start sm:text-[40px] text-[25px] text-nowrap`}>$ cat FAQ.yml</p>

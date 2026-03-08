@@ -16,15 +16,6 @@ const ERROR_MESSAGES: Record<string, string> = {
 const DEFAULT_MESSAGE = "Sorry, something went wrong. Please try again or contact support if the issue persists.";
 
 export default async function DiscordFailed({ searchParams }: { searchParams: Promise<{ err?: string }> }) {
-    const session = await auth.api.getSession({
-        headers: await headers()
-    });
-    if (!session) redirect("/discord");
-    await connectToDatabase();
-    const isInDiscord = Boolean(await Discord.exists({ email: session.user.email }));
-    if (isInDiscord) {
-        redirect("/discord/success");
-    }
     const { err } = await searchParams;
     const message = (err && ERROR_MESSAGES[err]) || DEFAULT_MESSAGE;
     return (

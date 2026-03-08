@@ -6,8 +6,8 @@ import { Applicant, Discord } from "@/database/schemas";
 import { connectToDatabase } from "@/database/mongoose";
 
 export async function GET(request: NextRequest) {
-    const failed = `${request.nextUrl.origin}/discord/failed`;
-    const success = `${request.nextUrl.origin}/discord/success`;
+    const failed = `https://vandyhacks.org/discord/failed`;
+    const success = `https://vandyhacks.org/discord/success`;
     try {
         const session = await auth.api.getSession({
             headers: request.headers,
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
         if (!code) {
             return NextResponse.redirect(`${failed}?err=oauth`);
         }
-        const redirectUri = `${request.nextUrl.origin}/api/discord/callback`;
+        const redirectUri = `https://vandyhacks.org/api/discord/callback`;
         const tokenRes = await axios.post(
             "https://discord.com/api/oauth2/token",
             qs.stringify({

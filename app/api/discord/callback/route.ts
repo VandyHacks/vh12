@@ -12,16 +12,16 @@ export async function GET(request: NextRequest) {
         const session = await auth.api.getSession({
             headers: request.headers,
         });
-        if (!session) return NextResponse.redirect(`${failed}?err=not_authenticated`);
+        if (!session) return NextResponse.redirect(`${failed}?err=not_authenticated`, 302);
         await connectToDatabase();
         const accepted = Boolean(await Applicant.exists({ email: session.user.email, accepted: true }));
         if (!accepted) {
-            return NextResponse.redirect(`${failed}?err=not_accepted`);
+            return NextResponse.redirect(`${failed}?err=not_accepted`, 302);
         }
         const searchParams = request.nextUrl.searchParams;
         const code = searchParams.get("code");
         if (!code) {
-            return NextResponse.redirect(`${failed}?err=oauth`);
+            return NextResponse.redirect(`${failed}?err=oauth`, 302);
         }
         const redirectUri = `https://vandyhacks.org/api/discord/callback`;
         const tokenRes = await axios.post(
@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
             );
         }
         catch (e: unknown) {
-            return NextResponse.redirect(`${failed}?err=not_in_server`);
+            return NextResponse.redirect(`${failed}?err=not_in_server`, 302);
         }
         await axios.put(
             `https://discord.com/api/v10/guilds/1473915812661428407/members/${userID}/roles/1476424988406976553`,
@@ -64,11 +64,11 @@ export async function GET(request: NextRequest) {
             }
         );
         await Discord.insertOne({ email: session.user.email, userID, name });
-        return NextResponse.redirect(success);
+        return NextResponse.redirect(success, 302);
     }
     catch (e: unknown) {
         console.error(e);
-        return NextResponse.redirect(failed);
+        return NextResponse.redirect(failed, 302);
     }
 
 }

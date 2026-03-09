@@ -311,6 +311,22 @@ export default function Form({ email }: { email: string }) {
                             }}
                         />
                         <Selector
+                            name="travelReimbursement"
+                            label={
+                                <div className="inline">
+                                    I understand that VandyHacks does not provide travel reimbursement.
+                                </div>
+                            }
+                            options={["Agree"]}
+                            control={control}
+                            textWrap
+                            error={errors.travelReimbursement}
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["travelReimbursement"] = ref}
+                            _rules={{
+                                required: "Please agree to the terms."
+                            }}
+                        />
+                        <Selector
                             name="mlhTerms"
                             label={
                                 <div className="inline">

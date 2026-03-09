@@ -57,7 +57,9 @@ const ApplicantSchema = new mongoose.Schema({
     usStatus: { type: String, enum: YES_NO_OPTIONS, required: true },
     volunteerContact: { type: String, enum: YES_NO_OPTIONS, required: true },
     resume: { type: String },
-    authorizeEmails: { type: Boolean }
+    authorizeEmails: { type: Boolean },
+    accepted: { type: Boolean, default: false },
+    emailSent: { type: Boolean, default: false }
 });
 
 const AnalyticsSchema = new mongoose.Schema({

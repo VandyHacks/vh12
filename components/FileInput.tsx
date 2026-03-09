@@ -19,7 +19,7 @@ export default function FileInput({ name, label, placeholder, register, error, v
                 ...validation,
                 onChange: (e: any) => setFileName(e.target.files?.[0]?.name || "")
             })} />
-            <label htmlFor={name} className={cn("w-full overflow-hidden mt-2 cursor-pointer text-black bg-stone-200 border-4 border-black px-4 py-3 shadow-[6px_6px_0px_0px_#000] hover:bg-stone-100 transition-colors duration-150 active:translate-y-0.5", disabled && "opacity-50 cursor-not-allowed")}>
+            <label htmlFor={name} className={cn("w-full overflow-hidden mt-2 cursor-pointer text-black bg-stone-200 border-4 border-black px-4 py-3 shadow-[6px_6px_0px_0px_#000] hover:bg-stone-100 transition-colors duration-150 active:translate-y-0.5", disabled && "opacity-50 cursor-not-allowed", error ? "border-red-500 shadow-[6px_6px_0px_0px_#7f1d1d]" : "")}>
                 {fileName ? `${clip(fileName, 25)}` : placeholder || "Upload File"}
             </label>
             {

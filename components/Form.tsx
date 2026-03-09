@@ -176,13 +176,15 @@ export default function Form({ email }: { email: string }) {
                             label="Resume" 
                             register={register} 
                             error={errors.resume} 
-                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["resume"] = ref} validation={{
-                            validate: (files: FileList) => {
-                                    if (!files || files.length === 0) return true;
+                            fieldRef={(ref: HTMLDivElement | null) => fieldRefs.current["resume"] = ref} 
+                            validation={{
+                                validate: (files: FileList) => {
+                                    if (!files || files.length === 0) return "Please upload your resume.";
                                     if (files.length > 1) return "Upload only one file.";
                                     if (files[0].size === 0 ) return "File does not exist.";
                                     return files[0].size <= 500 * 1024 || "File too large (max 500kB)";
-                                }
+                                },
+                                required: "Resume is required."
                             }}
                         />
                     </div>

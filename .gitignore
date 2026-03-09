@@ -41,4 +41,4 @@ yarn-error.log*
 next-env.d.ts
 
 applicants.csv
-new_applicants.csv
+applicants_accepted.csv

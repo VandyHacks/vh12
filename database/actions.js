@@ -90,6 +90,9 @@ export const submitForm = async (data, files) => {
             resumeKey = await uploadResume(buffer, type.mime);
             if (resumeKey === null) return { success: false }
         }
+        else {
+            return { success: false }
+        }
 
         const applicant = new Applicant({ ...data, authorizeEmails: data.authorizeEmails === "Agree", email: session.user.email, resume: resumeKey });
 

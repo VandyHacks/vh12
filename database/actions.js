@@ -38,6 +38,7 @@ export const submitForm = async (data, files) => {
 
         const lengths = {
             name: [2,30],
+            preferredEmail: [null,50],
             age: [null,2],
             major: [2,30],
             phoneNumber: [null,15],

@@ -100,7 +100,7 @@ async function main() {
 
     const acceptances = await getAcceptances();
     const users = acceptances.map(a => ({
-        email: a.email,
+        email: a.preferredEmail || a.email,
         name: a.preferredName || a.name
     }));
     // const users = [];

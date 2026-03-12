@@ -107,6 +107,12 @@ export default function Form({ email }: { email: string }) {
                     }}/>
                     <InputField name="preferredName" type="text" label="Preferred Name" register={register} error={errors.preferredName}/>
                     <div className="col-span-2">
+                        <InputField name="preferredEmail" type="email" label="Preferred Email" register={register} error={errors.preferredEmail} validation={{
+                            maxLength: { value: 50, message: "Must be less than 50 characters." },
+                            pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Please enter a valid email address." }
+                        }}/>
+                    </div>
+                    <div className="col-span-2">
                         <InputField name="age" type="text" label="Age" register={register} error={errors.age} validation={{
                             required: "Age is required.",
                             min: { value: 1, message: "Age must be at least 1." },

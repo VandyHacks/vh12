@@ -67,6 +67,10 @@ export const FAQ_ELEMENTS = [
     answer: "VandyHacks XII will be held in Featheringill Hall at Vanderbilt University. Hackers commuting to Vanderbilt via car will have access to parking. There are also various transportation options nearby."
   },
   {
+    question: "Does VandyHacks provide travel reimbursement?",
+    answer: "No, we do not. If possible, please contact your institutional hackathon organization for assistance."
+  },
+  {
     question: "When does the event start and end?",
     answer: "Registration is from 7:00-9:00am CST on March 21st. The hackathon starts at 11:00am CST on March 21st and ends at 10:30pm CST on March 22nd."
   },

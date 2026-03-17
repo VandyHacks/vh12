@@ -11,7 +11,7 @@ const scheduleItems: ModuleType[] = [
     { time: "10:45 AM", name: "MLH Workshop: Hacking with Github Copilot" },
     { time: "11:30 AM", name: "Hackathon Begins" },
     { time: "1:00 PM", name: "Lunch" },
-    { time: "2:00 PM", name: "Workshop 1" },
+    { time: "2:00 PM", name: "Workshop 1: Real Time Applications with Websockets" },
     { time: "3:00 PM", name: "MLH Workshop: Intro to Google AI Studio" },
     { time: "4:00 PM", name: "Social Event 1: Tech Together MeetUp" },
     { time: "5:30 PM", name: "Workshop 2" },

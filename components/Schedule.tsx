@@ -8,11 +8,11 @@ type ModuleType = { time: string, name: string };
 const scheduleItems: ModuleType[] = [
     { time: "7:45 AM", name: "Check-In" },
     { time: "9:15 AM", name: "Opening Ceremony" },
-    { time: "10:45 AM", name: "MLH Workshop 1" },
+    { time: "10:45 AM", name: "MLH Workshop: Hacking with Github Copilot" },
     { time: "11:30 AM", name: "Hackathon Begins" },
     { time: "1:00 PM", name: "Lunch" },
     { time: "2:00 PM", name: "Workshop 1" },
-    { time: "3:00 PM", name: "MLH Workshop 2" },
+    { time: "3:00 PM", name: "MLH Workshop: Intro to Google AI Studio" },
     { time: "4:00 PM", name: "Social Event 1: Tech Together MeetUp" },
     { time: "5:30 PM", name: "Workshop 2" },
     { time: "7:00 PM", name: "Dinner" },

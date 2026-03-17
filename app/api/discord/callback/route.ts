@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
         const userID = userRes.data.id;
         const name = userRes.data.username;
         try {
-            const res = await axios.get(
+            await axios.get(
                 `https://discord.com/api/v10/guilds/1473915812661428407/members/${userID}`,
                 {
                     headers: {

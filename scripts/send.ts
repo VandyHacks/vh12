@@ -1,7 +1,7 @@
 import "dotenv/config"
 import nodemailer from "nodemailer"
 import { connectToDatabase } from "../database/mongoose"
-import { Applicant } from "../database/schemas"
+import { Applicant, Discord } from "../database/schemas"
 
 const generateHtml = (name: string) => `
 <!DOCTYPE html>
@@ -31,7 +31,7 @@ const generateHtml = (name: string) => `
 
             <p>Congratulations! You're invited to be a part of <span class="highlight">VandyHacks XII!</span> We enjoyed reading your application and would love to see your ideas come to life during our event on <span class="highlight">March 21st-22nd!</span></p>
 
-            <p><span class="highlight">Join our <a target="_blank" href="https://discord.gg/4aKzJF5A">discord server</a> and verify</span> to confirm your attendance by <span class="highlight">March 15th, 11:59 PM CST.</span></p>
+            <p>Please <span class="highlight">join our <a target="_blank" href="https://discord.gg/xMCptYbM9A">discord server</a> and verify</span> to confirm your attendance by <span class="highlight">March 20th, 11:59 PM CST.</span></p>
 
             <p>If you have any questions or concerns, check out our <a target="_blank" href="http://vandyhacks.org#faq">FAQ</a> or reach out to us at <a href="mailto:info@vandyhacks.org">info@vandyhacks.org</a>.</p>
         </div>
@@ -72,40 +72,60 @@ async function getAcceptances() {
     return acceptances;
 }
 
+async function getAcceptancesNotOnDiscord() {
+    await connectToDatabase();
+    const accepted = await Applicant.find({ accepted: true, emailSent: true });
+    const discordEmails = new Set((await Discord.find({}, { email: 1 })).map((d: any) => d.email));
+
+    const notOnDiscord = accepted.filter((a: any) => !discordEmails.has(a.email));
+    return notOnDiscord;
+}
+
 async function sendEmails(users: { email: string, name: string }[]) {
     console.log(`Sending to ${users.length} users.`)
-    for (const user of users) {
-        console.log(`Sending to ${user.name}.`)
-        const result = await transporter.sendMail({
-            from: "VandyHacks <info@vandyhacks.org>",
-            to: user.email,
-            subject: "[ACTION REQUIRED] Congratulations! Welcome to Vandyhacks XII.",
-            html: generateHtml(user.name),
-            attachments: [
-                {
-                    filename: "vhlogo.png",
-                    path: "scripts/vhlogo.png",
-                    cid: "vandyhacksLogo"
-                }
-            ]
-        })
-        await Applicant.updateOne({ email: user.email }, { emailSent: true });
-        console.log(result.response);
-        console.log("");
-        await new Promise(r => setTimeout(r, 20));
+    const results = await Promise.allSettled(users.map(async (user) => {
+        try {
+            const result = await transporter.sendMail({
+                from: "VandyHacks <info@vandyhacks.org>",
+                to: user.email,
+                subject: "[ACTION REQUIRED] Congratulations! Welcome to VandyHacks XII.",
+                html: generateHtml(user.name),
+                attachments: [
+                    {
+                        filename: "vhlogo.png",
+                        path: "scripts/vhlogo.png",
+                        cid: "vandyhacksLogo"
+                    }
+                ]
+            });
+            await Applicant.updateOne({ email: user.email }, { emailSent: true });
+            return { user, response: result.response };
+        } catch (err) {
+            await Applicant.updateOne({ email: user.email }, { emailSent: false });
+            throw err;
+        }
+    }));
+    for (const [i, result] of results.entries()) {
+        if (result.status === "fulfilled") {
+            console.log(`Success ${users[i].name}: ${result.value.response}`);
+        } else {
+            console.error(`Failed ${users[i].name} (${users[i].email}): ${result.reason}`);
+        }
     }
 }
+
 
 async function main() {
 
     const acceptances = await getAcceptances();
-    const users = acceptances.map(a => ({
-        email: a.preferredEmail || a.email,
-        name: a.preferredName || a.name
-    }));
-    // const users = [];
-    // users.push({ name: "Noah", email: "noah.g.lisin@vanderbilt.edu" })
+    // const users = acceptances.map(a => ({
+    //     email: a.preferredEmail || a.email,
+    //     name: a.preferredName || a.name
+    // }));
     // console.log(users);
+    const users = [];
+    users.push({ name: "Alex", email: "gunsbestkid@gmail.com" });
+    users.push({ name: "Noah", email: "noah.g.lisin@vanderbilt.edu" });
     await sendEmails(users);
     process.exit(0);
 }

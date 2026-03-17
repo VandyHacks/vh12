@@ -12,6 +12,7 @@ import Lenis from 'lenis'
 import { FAQ_ELEMENTS } from "@/lib/constants";
 import FAQElement from "@/components/FAQElement";
 import { Globe, Instagram } from "lucide-react";
+import Schedule from "@/components/Schedule";
 
 export default function Home() {
 
@@ -88,8 +89,10 @@ export default function Home() {
 					</p>
 				</div>
 			</div>
-			<div id="faq" className="h-screen relative" style={{ backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
-				<div className="grid grid-rows-[auto_1fr] gap-2 h-full max-w-6xl mx-5 xl:mx-auto pt-10 pb-20">
+			<Schedule/>
+			<div id="faq" className="h-screen relative">
+				<div className="absolute top-0 w-full h-screen bg-cover bg-no-repeat rotate-180 -z-1" style={{ backgroundImage: `url(${bg.src})` }} />
+				<div className="grid grid-rows-[auto_1fr] gap-8 h-full max-w-6xl mx-5 xl:mx-auto pt-10 pb-20">
 					<div className="flex flex-col items-center justify-center">
 						<p className={`${vt323.className} md:self-start sm:text-[40px] text-[25px] text-nowrap`}>$ cat FAQ.yml</p>
 						<p className={`${pressStart2P.className} sm:text-[60px] text-[30px]`}>FAQ</p>
@@ -103,8 +106,7 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
-			<div className="h-20 relative overflow-hidden">
-				<div className="absolute top-0 w-full h-screen bg-cover bg-no-repeat rotate-180 -z-1" style={{ backgroundImage: `url(${bg.src})` }} />
+			<div className="h-20 relative overflow-hidden" style={{ backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
 				<div className="max-w-6xl mx-5 xl:mx-auto flex items-center justify-start h-full gap-5 flex-wrap leading-[10px]">
 					<Instagram className="cursor-pointer hover:text-blue-300 transition-colors ease-in-out duration-500" onClick={() => window.open("https://www.instagram.com/vandyhacks", "_blank")?.focus()}/>
 					<Globe className="cursor-pointer hover:text-blue-300 transition-colors ease-in-out duration-500" onClick={() => window.open("https://linktr.ee/vandyhacks", "_blank")?.focus()} />

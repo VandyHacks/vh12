@@ -118,13 +118,13 @@ async function sendEmails(users: { email: string, name: string }[]) {
 async function main() {
 
     const acceptances = await getAcceptances();
-    // const users = acceptances.map(a => ({
-    //     email: a.preferredEmail || a.email,
-    //     name: a.preferredName || a.name
-    // }));
+    const users = acceptances.map(a => ({
+        email: a.preferredEmail || a.email,
+        name: a.preferredName || a.name
+    }));
     // console.log(users);
-    const users = [];
-    users.push({ name: "Alex", email: "gunsbestkid@gmail.com" });
+    // const users = [];
+    // users.push({ name: "Alex", email: "gunsbestkid@gmail.com" });
     users.push({ name: "Noah", email: "noah.g.lisin@vanderbilt.edu" });
     await sendEmails(users);
     process.exit(0);

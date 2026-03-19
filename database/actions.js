@@ -16,8 +16,18 @@ import {
   SHIRT_SIZES,
   YES_NO_OPTIONS,
 } from '@/lib/constants'
+import { DateTime } from "luxon";
 
 export const submitForm = async (data, files) => {
+
+    const now = DateTime.now().setZone('America/Chicago');
+    const due = DateTime.fromObject(
+        { year: 2026, month: 3, day: 18, hour: 23, minute: 59 },
+        { zone: 'America/Chicago' }
+    );
+    const closed = now > due;
+
+    if (closed) return;
 
     try {
 

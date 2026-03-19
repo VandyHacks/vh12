@@ -7,9 +7,20 @@ import Form from "@/components/Form";
 import { connectToDatabase } from "@/database/mongoose"
 import { Applicant } from "@/database/schemas"
 import RegisterSuccess from "@/components/RegisterSuccess";
+import { DateTime } from "luxon";
 
 export default async function Register() {
+    
+    const now = DateTime.now().setZone('America/Chicago');
+    const due = DateTime.fromObject(
+        { year: 2026, month: 3, day: 18, hour: 23, minute: 59 },
+        { zone: 'America/Chicago' }
+    );
+    const closed = now > due;
 
+    if (closed) {
+        redirect("/");
+    }
     const session = await auth.api.getSession({
         headers: await headers()
     });

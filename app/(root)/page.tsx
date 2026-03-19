@@ -13,6 +13,7 @@ import { FAQ_ELEMENTS } from "@/lib/constants";
 import FAQElement from "@/components/FAQElement";
 import { Globe, Instagram } from "lucide-react";
 import Schedule from "@/components/Schedule";
+import { DateTime } from "luxon";
 
 export default function Home() {
 
@@ -46,6 +47,13 @@ export default function Home() {
 		return () => window.removeEventListener("resize", onResize);
 	}, []);
 
+	const now = DateTime.now().setZone('America/Chicago');
+	const due = DateTime.fromObject(
+		{ year: 2026, month: 3, day: 18, hour: 23, minute: 59 },
+		{ zone: 'America/Chicago' }
+	);
+	const closed = now > due;
+
 	return (
 		<div className="">
 			<div style={{ lineHeight: "normal", backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }} className="pt-12 pb-8 h-screen lg:pt-25 lg:pb-25 h-full auto-rows-fr relative grid sm-landscape-grid place-items-center z-1">
@@ -76,7 +84,7 @@ export default function Home() {
 						whileTap={{ scale: 0.95 }}
 						transition={{ type: "spring" }}
 					>
-						<Button text="Apply Now" animate onClick={() => router.push(`/sign-in?callback=${encodeURIComponent("/register")}`)} />
+						<Button text={closed ? "Applications Closed" : "Apply Now"} animate={!closed} onClick={closed ? () => null : () => router.push(`/sign-in?callback=${encodeURIComponent("/register")}`)} />
 					</motion.div>
 				</div>
 			</div>

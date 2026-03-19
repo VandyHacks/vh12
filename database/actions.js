@@ -17,6 +17,7 @@ import {
   YES_NO_OPTIONS,
 } from '@/lib/constants'
 import { DateTime } from "luxon";
+import { success } from "better-auth";
 
 export const submitForm = async (data, files) => {
 
@@ -27,7 +28,7 @@ export const submitForm = async (data, files) => {
     );
     const closed = now > due;
 
-    if (closed) return;
+    if (closed) return { success: false, error: "Closed." }
 
     try {
 

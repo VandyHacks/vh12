@@ -5,7 +5,7 @@ import Image from "next/image";
 
 type ModuleType = { time: string, name: string };
 
-const scheduleItems: ModuleType[] = [
+const day1Items: ModuleType[] = [
     { time: "7:45 AM", name: "Check-In" },
     { time: "9:15 AM", name: "Opening Ceremony" },
     { time: "10:45 AM", name: "MLH Workshop 1: Hacking with Github Copilot" },
@@ -17,6 +17,17 @@ const scheduleItems: ModuleType[] = [
     { time: "5:30 PM", name: "VandyHacks Workshop 2" },
     { time: "7:00 PM", name: "Dinner" },
     { time: "8:00 PM", name: "Social Event 2" },
+];
+
+const day2Items: ModuleType[] = [
+    { time: "8:00 AM", name: "Breakfast" },
+    { time: "9:00 AM", name: "Career Fair" },
+    { time: "11:00 AM", name: "Hackathon Ends" },
+    { time: "11:45 AM", name: "Lunch Break" },
+    { time: "12:30 PM", name: "ShowcaseSet Up" },
+    { time: "1:00 PM", name: "Judging" },
+    { time: "2:30 PM", name: "Career Panel/Lunch" },
+    { time: "3:30 PM", name: "Closing Ceremony" },
 ];
 
 function ScheduleItem({ item }: { item: ModuleType }) {
@@ -65,13 +76,18 @@ export default function Schedule() {
                             March 21st
                         </p>
                         {
-                            scheduleItems.map((item, index) => (
-                                <ScheduleItem key={index} item={item} />
+                            day1Items.map((item, index) => (
+                                <ScheduleItem key={`d1-${index}`} item={item} />
                             ))
                         }
-                        <p className={`${vt323.className} text-[20px] text-center sm:text-[28px] text-white`}>
-                            March 22nd... TBD
+                        <p className={`${vt323.className} text-[20px] text-center sm:text-[28px] text-white mt-6`}>
+                            March 22nd
                         </p>
+                        {
+                            day2Items.map((item, index) => (
+                                <ScheduleItem key={`d2-${index}`} item={item} />
+                            ))
+                        }
                     </div>
                 </div>
             </div>

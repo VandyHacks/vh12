@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import qs from "qs";
+import { google } from "googleapis";
 import { auth } from "@/lib/auth/auth";
 import { Applicant, Discord } from "@/database/schemas";
 import { connectToDatabase } from "@/database/mongoose";
+
+const gAuth = new google.auth.GoogleAuth({
+    credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY!),
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+});
+const sheets = google.sheets({ version: "v4", auth: gAuth });
 
 export async function GET(request: NextRequest) {
     const failed = `https://vandyhacks.org/discord/failed`;
@@ -23,7 +30,7 @@ export async function GET(request: NextRequest) {
         if (!code) {
             return NextResponse.redirect(`${failed}?err=oauth`, 302);
         }
-        const redirectUri = `https://vandyhacks.org/api/discord/callback`;
+        const redirectUri = "https://vandyhacks.org/api/discord/callback";
         const tokenRes = await axios.post(
             "https://discord.com/api/oauth2/token",
             qs.stringify({
@@ -64,6 +71,30 @@ export async function GET(request: NextRequest) {
             }
         );
         await Discord.insertOne({ email: session.user.email, userID, name });
+        const applicant = await Applicant.findOne(
+            { email: session.user.email },
+            { name: 1, preferredName: 1, email: 1, phoneNumber: 1 }
+        );
+        if (applicant) {
+            try {
+                await sheets.spreadsheets.values.append({
+                    spreadsheetId: "16I8kUPUNbN4d5wDvt815WvUtg4trQWJHLd5NXtcmE6E",
+                    range: "Applicants!A1",
+                    valueInputOption: "USER_ENTERED",
+                    requestBody: {
+                        values: [[
+                            applicant.name,
+                            applicant.preferredName || "",
+                            applicant.email,
+                            applicant.phoneNumber
+                        ]],
+                    },
+                });
+            } catch (sheetErr) {
+                console.error("Failed to append to Google Sheet:", sheetErr);
+            }
+        }
+
         return NextResponse.redirect(success, 302);
     }
     catch (e: unknown) {

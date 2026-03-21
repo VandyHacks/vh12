@@ -135,3 +135,24 @@ export const FAQ_ELEMENTS = [
     answer: "Feel free to message us @vandyhacks on Instagram for the fastest response. You can also email us at subha.b.mostafiz@vanderbilt.edu."
   }
 ];
+
+export const TEAM_MEMBERS = [
+  { name: "Subha Mostafiz", role: "President", image: "/team/subha_mostafiz.jpg" },
+  { name: "Ashley Lai", role: "Director of Finance & Sponsorships", image: "/team/ashley_lai.jpg" },
+  { name: "Ronak Mahajan", role: "Director of Growth", image: "/team/ronak_mahajan.jpg" },
+  { name: "Aarav Gupta", role: "VP of Hackathon Experience Internal", image: "/team/aarav_gupta.png" },
+  { name: "Shravya Eyunni", role: "VP of Hackathon Experience External", image: "/team/shravya_eyunni.jpg" },
+  { name: "Filiz Karabulut", role: "VP of Hackathon Experience External", image: "/team/filiz_karabulut.jpeg" },
+  { name: "Safoora Osman", role: "VP of Internal Finance", image: "/team/safoora_osman.jpg" },
+  { name: "Una O'Leary", role: "VP of Sponsorship", image: "/team/una_o'leary.jpg" },
+  { name: "Alena Peethala", role: "VP of Outreach", image: "/team/alena_peethala.jpg" },
+  { name: "David Boakye-Agyemang", role: "VP of Outreach", image: "/team/david_boakye-agyemang.jpg" },
+  { name: "Dhilan Verma", role: "Growth Co-Director", image: "/team/dhilan_verma.jpeg" },
+  { name: "Xinyi He", role: "Co-VP of Marketing", image: "/team/xinyi_he.jpeg" },
+  { name: "Geovanni Marcos", role: "Co-VP of Marketing", image: "/team/geovanni_marcos.jpeg" },
+  { name: "Christus Luo", role: "Designer", image: "/team/christus_luo.jpg" },
+  { name: "Noah Lisin", role: "Lead Developer", image: "/team/noah_lisin.jpg" },
+  { name: "Tiger Yang", role: "Developer", image: "/team/tiger_yang.jpeg" },
+  { name: "Ethan Xiao", role: "Developer", image: "/team/ethan_xiao.jpg" },
+  { name: "Zahir Alhinai", role: "Developer", image: "/team/zahir_alhinai.jpeg" }
+];

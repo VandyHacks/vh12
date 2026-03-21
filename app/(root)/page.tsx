@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 import Background from "@/components/Background";
 import bg from "@/public/stars_random_full.png"
 import Lenis from 'lenis'
-import { FAQ_ELEMENTS } from "@/lib/constants";
+import { FAQ_ELEMENTS, TEAM_MEMBERS } from "@/lib/constants";
+import Image from "next/image";
 import FAQElement from "@/components/FAQElement";
 import { Globe, Instagram } from "lucide-react";
 import Schedule from "@/components/Schedule";
@@ -114,7 +115,40 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
-			<div className="h-20 relative overflow-hidden" style={{ backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
+			<div className="h-screen relative">
+				<div className="absolute top-0 w-full h-screen bg-cover bg-no-repeat -z-1" style={{ backgroundImage: `url(${bg.src})` }} />
+				<div className="grid grid-rows-[auto_1fr] gap-8 h-full max-w-6xl mx-5 xl:mx-auto pt-10 pb-20">
+					<div className="flex flex-col items-center justify-center">
+						<p className={`${vt323.className} md:self-start sm:text-[40px] text-[25px] text-nowrap`}>$ cat SQUAD.yaml</p>
+						<p className={`${pressStart2P.className} sm:text-[60px] text-[30px]`}>Our Team</p>
+					</div>
+				<div className="overflow-y-scroll scrollbar pr-2 max-h-[80vh] scroll-smooth" data-lenis-prevent>
+						<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+							{TEAM_MEMBERS.map((member, i) => (
+								<div key={i} className="flex flex-col items-center text-center gap-2 group">
+									<div className="relative w-full aspect-square overflow-hidden">
+										<Image
+											src={member.image}
+											alt={member.name}
+											fill
+											loading="lazy"
+											className="object-cover group-hover:scale-105 transition-all ease-in-out duration-300 hover:scale-110"
+											sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+										/>
+									</div>
+									<div>
+										<p className={`${vt323.className} text-lg sm:text-xl`}>{member.name}</p>
+										<p className={`${vt323.className} text-sm sm:text-base text-gray-400`}>{member.role}</p>
+									</div>
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div className="h-20 relative overflow-hidden">
+			<div className="absolute top-0 w-full h-screen bg-cover bg-no-repeat rotate-180 -z-1" style={{ backgroundImage: `url(${bg.src})` }} />
 				<div className="max-w-6xl mx-5 xl:mx-auto flex items-center justify-start h-full gap-5 flex-wrap leading-[10px]">
 					<Instagram className="cursor-pointer hover:text-blue-300 transition-colors ease-in-out duration-500" onClick={() => window.open("https://www.instagram.com/vandyhacks", "_blank")?.focus()}/>
 					<Globe className="cursor-pointer hover:text-blue-300 transition-colors ease-in-out duration-500" onClick={() => window.open("https://linktr.ee/vandyhacks", "_blank")?.focus()} />

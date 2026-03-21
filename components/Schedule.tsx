@@ -24,7 +24,7 @@ const day2Items: ModuleType[] = [
     { time: "9:00 AM", name: "Career Fair" },
     { time: "11:00 AM", name: "Hackathon Ends" },
     { time: "11:45 AM", name: "Lunch Break" },
-    { time: "12:30 PM", name: "ShowcaseSet Up" },
+    { time: "12:30 PM", name: "Showcase Set Up" },
     { time: "1:00 PM", name: "Judging" },
     { time: "2:30 PM", name: "Career Panel/Lunch" },
     { time: "3:30 PM", name: "Closing Ceremony" },

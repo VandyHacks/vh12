@@ -28,7 +28,7 @@ async function main() {
     });
 
     const sheets = google.sheets({ version: "v4", auth });
-    const id = "16I8kUPUNbN4d5wDvt815WvUtg4trQWJHLd5NXtcmE6E";
+    const id = process.env.GOOGLE_SHEET_ID;
 
     await sheets.spreadsheets.values.append({
         spreadsheetId: id,

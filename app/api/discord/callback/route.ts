@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
         if (applicant) {
             try {
                 await sheets.spreadsheets.values.append({
-                    spreadsheetId: "16I8kUPUNbN4d5wDvt815WvUtg4trQWJHLd5NXtcmE6E",
+                    spreadsheetId: process.env.GOOGLE_SHEET_ID,
                     range: "Applicants!A1",
                     valueInputOption: "USER_ENTERED",
                     requestBody: {

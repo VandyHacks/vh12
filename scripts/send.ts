@@ -64,69 +64,88 @@ async function getAcceptances() {
     await connectToDatabase();
     const acceptances = await Applicant.find({
         accepted: true,
-        $or: [
-            { emailSent: false },
-            { emailSent: { $exists: false } }
-        ]
+        // $or: [
+        //     { emailSent: false },
+        //     { emailSent: { $exists: false } }
+        // ]
     });
     return acceptances;
 }
 
-async function getAcceptancesNotOnDiscord() {
-    await connectToDatabase();
-    const accepted = await Applicant.find({ accepted: true, emailSent: true });
-    const discordEmails = new Set((await Discord.find({}, { email: 1 })).map((d: any) => d.email));
-
-    const notOnDiscord = accepted.filter((a: any) => !discordEmails.has(a.email));
-    return notOnDiscord;
-}
-
 async function sendEmails(users: { email: string, name: string }[]) {
-    console.log(`Sending to ${users.length} users.`)
-    const results = await Promise.allSettled(users.map(async (user) => {
-        try {
-            const result = await transporter.sendMail({
-                from: "VandyHacks <info@vandyhacks.org>",
-                to: user.email,
-                subject: "[ACTION REQUIRED] Congratulations! Welcome to VandyHacks XII.",
-                html: generateHtml(user.name),
-                attachments: [
-                    {
-                        filename: "vhlogo.png",
-                        path: "scripts/vhlogo.png",
-                        cid: "vandyhacksLogo"
-                    }
-                ]
-            });
-            await Applicant.updateOne({ email: user.email }, { emailSent: true });
-            return { user, response: result.response };
-        } catch (err) {
-            await Applicant.updateOne({ email: user.email }, { emailSent: false });
-            throw err;
-        }
-    }));
-    for (const [i, result] of results.entries()) {
-        if (result.status === "fulfilled") {
-            console.log(`Success ${users[i].name}: ${result.value.response}`);
-        } else {
-            console.error(`Failed ${users[i].name} (${users[i].email}): ${result.reason}`);
-        }
+    console.log(`Sending to ${users.length} users.`);
+
+    const batchSize = 10;
+    const failures: { name: string; email: string; error: any }[] = [];
+
+    for (let i = 0; i < users.length; i += batchSize) {
+        const batch = users.slice(i, i + batchSize);
+        console.log(`Processing batch ${i / batchSize + 1}...`);
+
+        const results = await Promise.allSettled(
+            batch.map(async (user) => {
+                try {
+                    const result = await transporter.sendMail({
+                        from: "VandyHacks <info@vandyhacks.org>",
+                        to: user.email,
+                        subject: "[ACTION REQUIRED] Welcome to VandyHacks XII!",
+                        html: generateHtml(user.name),
+                        attachments: [
+                            {
+                                filename: "vhlogo.png",
+                                path: "scripts/vhlogo.png",
+                                cid: "vandyhacksLogo"
+                            }
+                        ]
+                    });
+                    return { user, response: result.response };
+                } catch (err) {
+                    failures.push({
+                        name: user.name,
+                        email: user.email,
+                        error: err
+                    });
+                    throw err;
+                }
+            })
+        );
+
+        results.forEach((result, idx) => {
+            const user = batch[idx];
+            if (result.status === "fulfilled") {
+                console.log(`Success ${user.name}: ${result.value.response}`);
+            } else {
+                console.error(`Failed ${user.name} (${user.email})`);
+            }
+        });
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+
+    if (failures.length === 0) {
+        console.log("No failures.");
+    } else {
+        failures.forEach((f, i) => {
+            console.error(
+                `${i + 1}. ${f.name} (${f.email})\n   Error: ${f.error}`
+            );
+        });
     }
 }
 
 
 async function main() {
-
-    const acceptances = await getAcceptances();
-    const users = acceptances.map(a => ({
-        email: a.preferredEmail || a.email,
-        name: a.preferredName || a.name
-    }));
-    // console.log(users);
+    
+    await connectToDatabase();
+    // const acceptances = await getAcceptances();
+    // const users = acceptances.map(a => ({
+    //     email: a.preferredEmail || a.email,
+    //     name: a.preferredName || a.name
+    // }));
     // const users = [];
-    // users.push({ name: "Alex", email: "gunsbestkid@gmail.com" });
-    users.push({ name: "Noah", email: "noah.g.lisin@vanderbilt.edu" });
-    await sendEmails(users);
+    // console.log(users);
+    // console.log(users.length);
+    // await sendEmails(users);
     process.exit(0);
 }
 

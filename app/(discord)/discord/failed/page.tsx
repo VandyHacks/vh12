@@ -10,7 +10,7 @@ const ERROR_MESSAGES: Record<string, string> = {
     not_authenticated: "You are not signed in. Please sign in with the email you applied with and try again.",
     not_accepted: "Your application has not been accepted yet. Please wait for an acceptance email before joining the Discord.",
     oauth: "Discord authorization failed. Please try connecting your Discord account again.",
-    not_in_server: "You must join the VandyHacks XII Discord server before verifying. Please join the server first, then try again.",
+    not_in_server: "You must join the VandyHacks XIII Discord server before verifying. Please join the server first, then try again.",
 };
 
 const DEFAULT_MESSAGE = "Sorry, something went wrong. Please try again or contact support if the issue persists.";
@@ -22,7 +22,7 @@ export default async function DiscordFailed({ searchParams }: { searchParams: Pr
         <div className={`h-full flex items-center justify-center px-6 ${pressStart2P.className}`}>
             <div className="flex flex-col items-center gap-6 max-w-xl w-full text-center">
                 <div className="flex flex-col items-center gap-2">
-                    <h1 className="text-[28px] sm:text-[36px] uppercase header-text-shadow text-white">vandyhacks xii</h1>
+                    <h1 className="text-[28px] sm:text-[36px] uppercase header-text-shadow text-white">vandyhacks xiii</h1>
                 </div>
                 <div className="w-full h-px bg-gradient-to-r from-transparent via-stone-600 to-transparent" />
                 <p className="text-[11px] sm:text-[13px] text-stone-300 leading-5 mb-2">

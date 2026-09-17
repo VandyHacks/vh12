@@ -1,4 +1,10 @@
 import "./globals.css";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "VandyHacks XIII",
+    description: "VandyHacks XIII, Vanderbilt University's student-run collegiate hackathon, returns to Nashville in March 2027.",
+};
 
 export default function RootLayout({
     children,
@@ -23,7 +29,7 @@ export default function RootLayout({
             <body
                 className={`antialiased`}
             >
-                <a id="mlh-trust-badge" style={style} href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2026-season&utm_content=white" target="_blank"><img src="https://s3.amazonaws.com/logged-assets/trust-badge/2026/mlh-trust-badge-2026-white.svg" alt="Major League Hacking 2026 Hackathon Season" style={{ width: "100%" }} /></a>
+                <a id="mlh-trust-badge" style={style} href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2027-season&utm_content=white" target="_blank" rel="noreferrer"><img src="https://s3.amazonaws.com/logged-assets/trust-badge/2027/mlh-trust-badge-2027-white.svg" alt="Major League Hacking 2027 Hackathon Season" style={{ width: "100%" }} /></a>
                 <div className="min-h-screen w-full overflow-x-hidden">
                     {children}
                 </div>

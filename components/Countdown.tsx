@@ -3,7 +3,7 @@
 import { useAnimate } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-const COUNTDOWN_FROM = "2026-03-24";
+const COUNTDOWN_FROM = "2027-03-10T00:00:00-06:00";
 const SECOND = 1000;
 const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;
@@ -18,7 +18,7 @@ const useTimer = (unit: "Day" | "Hour" | "Minute" | "Second") => {
     const getTimeValue = () => {
         const end = new Date(COUNTDOWN_FROM);
         const now = new Date();
-        const distance = +end - +now;
+        const distance = Math.max(0, +end - +now);
 
         if (unit === "Day") return Math.floor(distance / DAY);
         if (unit === "Hour") return Math.floor((distance % DAY) / HOUR);
@@ -60,8 +60,8 @@ const CountdownItem = ({ unit, text }: { unit: string, text: string }) => {
     const { ref, time } = useTimer(unit as "Day" | "Hour" | "Minute" | "Second");
     return (
         <div>
-            <p ref={ref} className="text-[30px] md:text-[60px]">{time}</p>
-            <p className="text-[15px] md:text-[30px]">{text}</p>
+            <p ref={ref} className="text-[30px] md:text-[54px]">{time}</p>
+            <p className="text-[14px] md:text-[24px]">{text}</p>
         </div>
     );
 

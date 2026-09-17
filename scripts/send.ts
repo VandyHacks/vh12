@@ -29,9 +29,9 @@ const generateHtml = (name: string) => `
         <div class="content">
             <p>Hi ${name}!</p>
 
-            <p>Congratulations! You're invited to be a part of <span class="highlight">VandyHacks XII!</span> We enjoyed reading your application and would love to see your ideas come to life during our event on <span class="highlight">March 21st-22nd!</span></p>
+            <p>Congratulations! You're invited to be a part of <span class="highlight">VandyHacks XIII!</span> We enjoyed reading your application and would love to see your ideas come to life during our event this March.</p>
 
-            <p>Please <span class="highlight">join our <a target="_blank" href="https://discord.gg/xMCptYbM9A">discord server</a> and verify</span> to confirm your attendance by <span class="highlight">March 20th, 11:59 PM CST.</span></p>
+            <p>Please <span class="highlight">join our <a target="_blank" href="https://discord.gg/xMCptYbM9A">Discord server</a> and verify</span> by the deadline in your acceptance details to confirm your attendance.</p>
 
             <p>If you have any questions or concerns, check out our <a target="_blank" href="http://vandyhacks.org#faq">FAQ</a> or reach out to us at <a href="mailto:info@vandyhacks.org">info@vandyhacks.org</a>.</p>
         </div>
@@ -88,7 +88,7 @@ async function sendEmails(users: { email: string, name: string }[]) {
                     const result = await transporter.sendMail({
                         from: "VandyHacks <info@vandyhacks.org>",
                         to: user.email,
-                        subject: "[ACTION REQUIRED] Welcome to VandyHacks XII!",
+                        subject: "[ACTION REQUIRED] Welcome to VandyHacks XIII!",
                         html: generateHtml(user.name),
                         attachments: [
                             {

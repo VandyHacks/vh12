@@ -22,7 +22,7 @@ export default async function Discord() {
             <div className={`h-full flex items-center justify-center px-6 ${pressStart2P.className}`}>
                 <div className="flex flex-col items-center gap-6 max-w-xl w-full text-center">
                     <div className="flex flex-col items-center gap-2">
-                        <h1 className="text-[28px] sm:text-[36px] uppercase header-text-shadow text-white">vandyhacks xii</h1>
+                        <h1 className="text-[28px] sm:text-[36px] uppercase header-text-shadow text-white">vandyhacks xiii</h1>
                     </div>
                     <div className="w-full h-px bg-gradient-to-r from-transparent via-stone-600 to-transparent" />
                     <p className="text-[11px] sm:text-[13px] text-stone-300 leading-5 mb-2">

@@ -55,8 +55,8 @@ export const YES_NO_OPTIONS = ["Yes", "No"];
 
 export const FAQ_ELEMENTS = [
   {
-    question: "How do I register?",
-    answer: "You can register by filling out our brief form on the 'Apply Now' button at the top of the page."
+    question: "When is VandyHacks XIII?",
+    answer: "VandyHacks XIII is planned for March 2027. We will share the exact dates and application timeline as soon as they are confirmed."
   },
   {
     question: "What are the rules?",
@@ -64,23 +64,11 @@ export const FAQ_ELEMENTS = [
   },
   {
     question: "Where is the event?",
-    answer: "VandyHacks XII will be held in Featheringill Hall at Vanderbilt University. Hackers commuting to Vanderbilt via car will have access to parking. There are also various transportation options nearby."
+    answer: "VandyHacks XIII will take place at Vanderbilt University in Nashville, Tennessee. We will share the building, check-in, parking, and arrival details with accepted hackers before the event."
   },
   {
     question: "Does VandyHacks provide travel reimbursement?",
     answer: "No, we do not. If possible, please contact your institutional hackathon organization for assistance."
-  },
-  {
-    question: "When does the event start and end?",
-    answer: "Registration is from 7:45-9:00am CST on March 21st. The hackathon starts at 11:00am CST on March 21st and ends at 5:00pm CST on March 22nd."
-  },
-  {
-    question: "If I come in through driving, where can I park?",
-    answer: "We have parking from 25th Avenue Garage located on 2401 Highland Ave, Nashville, TN 37212."
-  },
-  {
-    question: "What is the registration deadline?",
-    answer: "The deadline to apply is currently March 20th at 11:59 pm. Please apply as early as possible, as it helps us with planning a lot better!"
   },
   {
     question: "Who can apply?",
@@ -96,7 +84,7 @@ export const FAQ_ELEMENTS = [
   },
   {
     question: "Can I submit older projects?",
-    answer: "Unfortunately not. We require that all formal submissions be projects that were started, made, and presented exclusively during VandyHacks XII. Any submissions that were found to contain a noticeable amount of previously made material will be disqualified from all prizes."
+    answer: "Unfortunately not. We require that all formal submissions be projects that were started, made, and presented exclusively during VandyHacks XIII. Any submissions that were found to contain a noticeable amount of previously made material will be disqualified from all prizes."
   },
   {
     question: "Am I eligible to win a prize?",
@@ -116,7 +104,7 @@ export const FAQ_ELEMENTS = [
   },
   {
     question: "Can I participate virtually?",
-    answer: "Unfortunately not, VandyHacks XII is fully in-person."
+    answer: "Unfortunately not, VandyHacks XIII is fully in-person."
   },
   {
     question: "What should I bring?",
@@ -128,11 +116,11 @@ export const FAQ_ELEMENTS = [
   },
   {
     question: "I'm interested in mentoring or judging",
-    answer: "Please email subha.b.mostafiz@vanderbilt.edu, or you can DM @vandyhacks on Instagram."
+    answer: <p>Email us at <a href="mailto:info@vandyhacks.org" className="text-blue-300">info@vandyhacks.org</a>, or send us a message @vandyhacks on Instagram.</p>
   },
   {
     question: "I have more questions!",
-    answer: "Feel free to message us @vandyhacks on Instagram for the fastest response. You can also email us at subha.b.mostafiz@vanderbilt.edu."
+    answer: <p>Email <a href="mailto:info@vandyhacks.org" className="text-blue-300">info@vandyhacks.org</a>.</p>
   }
 ];
 

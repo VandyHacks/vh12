@@ -87,14 +87,14 @@ export default function Home() {
 				</div>
 			</div>
 
-			<div id="faq" className="min-h-screen relative">
-				<div className="absolute top-0 w-full h-full bg-cover bg-no-repeat -z-1" style={{ backgroundImage: `url(${bg.src})` }} />
-				<div className="grid grid-rows-[auto_1fr] gap-8 min-h-screen max-w-6xl mx-5 xl:mx-auto pt-10 pb-20">
+			<div id="faq" className="h-screen relative">
+				<div className="absolute top-0 w-full h-screen bg-cover bg-no-repeat -z-1" style={{ backgroundImage: `url(${bg.src})` }} />
+				<div className="grid grid-rows-[auto_1fr] gap-8 h-full max-w-6xl mx-5 xl:mx-auto pt-10 pb-20">
 					<div className="flex flex-col items-center justify-center">
 						<p className={`${vt323.className} md:self-start sm:text-[40px] text-[25px] text-nowrap`}>$ cat FAQ.yml</p>
 						<p className={`${pressStart2P.className} sm:text-[60px] text-[30px]`}>FAQ</p>
 					</div>
-					<div className="space-y-2 pr-2 scroll-smooth">
+					<div className="overflow-y-scroll scrollbar space-y-2 pr-2 max-h-[80vh] scroll-smooth" data-lenis-prevent>
 						{FAQ_ELEMENTS.map((val, key) => (
 							<FAQElement question={val.question} answer={val.answer} key={key} />
 						))}

@@ -73,7 +73,7 @@ export default function Button({ text, onClick, animate = false }: { text: strin
                         :
                     <motion.p 
                         key="text" 
-                        className={cn(`${pressStart2P.className} absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[#AA52E9] text-nowrap`, text.length > 10 ? "text-[min(1.4vw,18px)]" : "text-[clamp(15px,2vw,25px)] ")}
+                        className={cn(`${pressStart2P.className} absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[#AA52E9] text-nowrap`, text.length > 10 ? "text-[10px] sm:text-[14px] md:text-[18px]" : "text-[clamp(15px,2vw,25px)] ")}
                         exit={{
                             opacity: 0
                         }}
